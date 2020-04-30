@@ -13,8 +13,7 @@ public class Student {
 	public Student() {
 	}
 
-	public Student(long id, String name, String login, String password, String faculty, String group) {
-		this.id = id;
+	public Student(String name, String login, String password, String faculty, String group) {
 		this.name = name;
 		this.login = login;
 		this.password = password;
