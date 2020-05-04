@@ -7,13 +7,6 @@ public class StudentAction {
 
 	public void registration(){
 		System.out.println("Enter name");
-		//read
-		//more code
-
-
-
-
-//		studentService.add();
 	}
 
 }
