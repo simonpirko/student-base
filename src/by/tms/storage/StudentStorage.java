@@ -79,4 +79,53 @@ public class StudentStorage {
 			e.printStackTrace();
 		}
 	}
+
+	public boolean checkById(Long id) {
+		Connection connection = null;
+		try {
+			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/student_base");
+			PreparedStatement preparedStatement = connection.prepareStatement("select * from students s where s.id = ?");
+			preparedStatement.setLong(1, id);
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean checkByLogin(String login) {
+		try {
+			Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/student_base");
+			PreparedStatement preparedStatement = connection.prepareStatement("select * from students s where s.login = ?");
+			preparedStatement.setString(1, login);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean checkByStudent(Student student) {
+		try {
+			Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/student_base");
+			PreparedStatement preparedStatement = connection.prepareStatement("select * from students s where s.id = ? or s.login = ?");
+			preparedStatement.setLong(1, student.getId());
+			preparedStatement.setString(2,student.getLogin());
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 }
