@@ -13,6 +13,8 @@ public class StudentAction {
 		System.out.println("Enter name");
 	}
 
+	//
+
 	public void add() {
 		Writer.write("Введите имя:");
 		String name = Reader.readName();
