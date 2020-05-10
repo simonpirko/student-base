@@ -17,17 +17,24 @@ public class StudentService {
 			studentStorage.save(student);
 			return true;
 		} else {
-			Writer.write("Ошибка добавления, такой студент уже существует");
 			return false;
 		}
 	}
 
-	public boolean remove(Student loign) { //По существующему логигу
-		if (studentStorage.existLogin(student.getLogin())) {
-			studentStorage.remove();
+	public boolean removeById(Student student, String id) { //По существующему логину
+		if (studentStorage.existId(student.getId())) {
+			studentStorage.removeById(id);
 			return true;
 		} else {
-			Writer.write("Таких студентов не найдено");
+			return false;
+		}
+	}
+
+	public boolean removeById(Student student, String id) { //По существующему логину
+		if (studentStorage.existId(student.getId())) {
+			studentStorage.removeById(id);
+			return true;
+		} else {
 			return false;
 		}
 	}
@@ -36,7 +43,6 @@ public class StudentService {
 		if (studentStorage.existLogin(login)) {
 			return studentStorage.getStudent();
 		} else {
-			Writer.write("Студентов с таким логином не сущесвует");
 		}
 		return null;
 	}
