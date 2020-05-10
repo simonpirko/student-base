@@ -1,5 +1,6 @@
 package by.tms.service;
 
+import by.tms.action.util.Writer;
 import by.tms.domain.Student;
 import by.tms.storage.StudentStorage;
 
@@ -11,19 +12,18 @@ public class StudentService {
 					   String password,
 					   String faculty,
 					   String group) {
-		if (!(studentStorage.existLogin())) {
+		if (!(studentStorage.checkByLogin(name))) {
 			Student student = new Student(name, login, password, faculty, group);
 			student.setLogin(student.getLogin().toUpperCase());
 			studentStorage.save(student);
 			return true;
 		} else {
-			Writer.write("Ошибка добавления, такой студент уже существует");
 			return false;
 		}
 	}
 
-	public boolean remove(Student loign) { //По существующему логигу
-		if (studentStorage.existLogin(student.getLogin())) {
+	public boolean remove(Student student) { //По существующему логигу
+		if (studentStorage.checkByLogin(student.getLogin())) {
 			studentStorage.remove();
 			return true;
 		} else {
@@ -32,17 +32,25 @@ public class StudentService {
 		}
 	}
 
+	public boolean remove2(String login) { //По существующему логигу
+		if (studentStorage.checkByLogin(login)) {
+			studentStorage.remove();
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public Student searchByLogin(String login) {
-		if (studentStorage.existLogin(login)) {
+		if (studentStorage.checkByLogin(login)) {
 			return studentStorage.getStudent();
 		} else {
-			Writer.write("Студентов с таким логином не сущесвует");
 		}
 		return null;
 	}
 
 	public boolean changePassword(Student student) {
-		if (studentStorage.existLogin(student.getLogin())) {
+		if (studentStorage.checkByLogin(student.getLogin())) {
 			studentStorage.changePassword(student.getLogin()); // if(oldpassword.equals(student.getPassword()))
 			return true;
 		}
@@ -69,7 +77,7 @@ public class StudentService {
 		return false;
 	}
 
-	public boolean chageFaculty(Student student, String faculty) {
+	public boolean changeFaculty(Student student, String faculty) {
 		if (studentStorage.existFaculty(student.getFaculty())) {
 			studentStorage.changeFaculty;
 			return true;
@@ -80,4 +88,21 @@ public class StudentService {
 		return false;
 	}
 
+	public void getAllStudents() { // Написать метод для вывода списка всех студентов
+		Writer.write("Список студентов:");
+	}
+
+	public boolean searchById (Long id) {
+		if (studentStorage.checkById(id)) {
+			return true;
+		}
+		return false;
+	}
+
+	public void updateNameById(Long id) {
+		if (studentStorage.checkById(id)) {
+			String name = studentStorage.getNameById(id);
+			studentStorage.updateNameById(id, studentStorage.getNameById(id));
+		}
+	}
 }

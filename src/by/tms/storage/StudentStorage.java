@@ -1,5 +1,6 @@
 package by.tms.storage;
 
+import by.tms.action.util.Writer;
 import by.tms.domain.Student;
 
 import java.sql.*;
@@ -90,7 +91,6 @@ public class StudentStorage {
 			PreparedStatement preparedStatement = connection.prepareStatement("select * from students s where s.id = ?");
 			preparedStatement.setLong(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();
-
 			if (resultSet.next()) {
 				return true;
 			}
@@ -131,4 +131,33 @@ public class StudentStorage {
 		return false;
 	}
 
+	public void remove() {  // Нет метода удаления пользователя
+		Writer.write("Должен удаляться студент");
+	}
+
+	public void save(Student student) {   // Нет метода сохранения пользователя
+		Writer.write("Должен сохраняться cтудент");
+	}
+
+	public void getNameById(Long id) {
+//		Writer.write("Должно возвращаться имя студента");
+		try {
+			Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/student_base");
+			PreparedStatement preparedStatement = connection.prepareStatement("select * from students s where s.id = ?");
+			preparedStatement.setLong(1, student.getId());
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+
+
+
+
+
+
+	}
 }
