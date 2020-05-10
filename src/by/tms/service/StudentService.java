@@ -99,10 +99,9 @@ public class StudentService {
 		return false;
 	}
 
-	public void updateNameById(Long id) {
+	public void updateNameById(Long id, String name) {
 		if (studentStorage.checkById(id)) {
-			String name = studentStorage.getNameById(id);
-			studentStorage.updateNameById(id, studentStorage.getNameById(id));
+			studentStorage.updateNameById(id, name);
 		}
 	}
 }

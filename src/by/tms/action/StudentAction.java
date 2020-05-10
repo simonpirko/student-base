@@ -76,8 +76,8 @@ public class StudentAction {
 	public void updateNameById() {
 		Writer.write("Введите Id для обновления имени:");
 		Long id = Reader.readLong();
-		studentService.updateNameById() {
-
-		}
+		Writer.write("Введите новое имя:");
+		String name = Reader.readName();
+		studentService.updateNameById(id, name);
 	}
 }

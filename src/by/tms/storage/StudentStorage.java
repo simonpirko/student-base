@@ -139,25 +139,19 @@ public class StudentStorage {
 		Writer.write("Должен сохраняться cтудент");
 	}
 
-	public void getNameById(Long id) {
+	public String getNameById(Long id) {
 //		Writer.write("Должно возвращаться имя студента");
 		try {
 			Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/student_base");
 			PreparedStatement preparedStatement = connection.prepareStatement("select * from students s where s.id = ?");
-			preparedStatement.setLong(1, student.getId());
+			preparedStatement.setLong(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
-				return true;
+				return resultSet.getString("name");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return false;
-
-
-
-
-
-
+		return null;
 	}
 }
