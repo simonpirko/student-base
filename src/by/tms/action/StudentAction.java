@@ -9,11 +9,11 @@ import by.tms.storage.StudentStorage;
 public class StudentAction {
 	private StudentService studentService = new StudentService();
 
-	public void registration(){
+	public void registration() {
 		System.out.println("Enter name");
 	}
 
-	public void add () {
+	public void add() {
 		Writer.write("Введите имя:");
 		String name = Reader.readName();
 		Writer.write("Введите логин:");
@@ -79,5 +79,15 @@ public class StudentAction {
 		Writer.write("Введите новое имя:");
 		String name = Reader.readName();
 		studentService.updateNameById(id, name);
+	}
+
+	public void updatePasswordById() {
+		Writer.write("Введите Id для обновления пароля:");
+		Long id = Reader.readLong();
+		if (studentService.searchById(id)) {
+			Writer.write("Введите новый пароль:");
+			String newPassword = Reader.readLine();
+			studentService.changePasswordById(id, newPassword);
+		}
 	}
 }

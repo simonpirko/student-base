@@ -57,6 +57,14 @@ public class StudentService {
 		return false;
 	}
 
+	public boolean changePasswordById(Long id, String newPassword) {
+		if (studentStorage.checkById(id)) {
+			studentStorage.updatePasswordById(id, newPassword);
+			return true;
+		}
+		return false;
+	}
+
 	public boolean getStudentGroupList(Student student) {
 		if (studentStorage.existGroup(student.getGroup())) {
 			studentStorage.getGroupList();
