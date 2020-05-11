@@ -21,7 +21,7 @@ public class Student {
 		this.group = group;
 	}
 
-	public Student(long id,String name, String login, String password, String faculty, String group) {
+	public Student(long id, String name, String login, String password, String faculty, String group) {
 		this.id = id;
 		this.name = name;
 		this.login = login;
