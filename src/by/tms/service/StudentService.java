@@ -1,74 +1,26 @@
 package by.tms.service;
 
+import by.tms.action.util.Writer;
 import by.tms.domain.Student;
 import by.tms.storage.StudentStorage;
 
 public class StudentService {
-    private StudentStorage studentStorage = new StudentStorage();
+   private StudentStorage studentStorage = new StudentStorage();
 
+	public void getAllStudents() { // Написать метод для вывода списка всех студентов
+		Writer.write("Список студентов:");
+	}
 
-    public boolean add(String name, String login, String password, String faculty, String group) {
-        if (!(studentStorage.checkByLogin())) {
-            Student student = new Student(name, login, password, faculty, group);
-            student.setLogin(student.getLogin().toUpperCase());
-            studentStorage.save(student);
-            return true;
-        } else {
-            return false;
-        }
-    }
+	public boolean searchById (Long id) {
+		if (studentStorage.checkById(id)) {
+			return true;
+		}
+		return false;
+	}
 
-    public boolean remove(Student student) {
-        if (studentStorage.checkByStudent(student)) {
-            studentStorage.remove(student);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean remove2(String login) {
-        if (studentStorage.checkByLogin(login)) {
-            studentStorage.remove2(login);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean getAllStudents() {
-        if (!(studentStorage.isEmpty())) {
-            studentStorage.printAll();
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public Student searchByLogin(String login) {
-        if (studentStorage.checkByLogin(login)) {
-            return studentStorage.getByLogin(login);
-        } else {
-            return null;
-        }
-    }
-
-    public boolean updateNameById(long id, String name) {
-        if (studentStorage.checkByName(name) && studentStorage.checkById(id)) {
-            studentStorage.updateNameById(id, name);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean changePasswordById(long id, String newPassword) {
-        if (studentStorage.checkById(id)) {
-            studentStorage.updatePasswordById(id, newPassword);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
+	public void updateNameById(Long id, String name) {
+		if (studentStorage.checkById(id)) {
+			studentStorage.updateNameById(id, name);
+		}
+	}
 }
