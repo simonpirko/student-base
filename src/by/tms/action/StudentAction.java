@@ -92,4 +92,15 @@ public class StudentAction {
 			studentService.changePasswordById(id, newPassword);
 		}
 	}
+
+	public void updateFacById() {
+		Writer.write("Введите Id для обновления факультета:");
+		Long id = Reader.readLong();
+		if (studentService.searchById(id)) {
+			Writer.write("Введите новый факультет:");
+			String newFaculty = Reader.readLine();
+			studentService.changeFaculty(id, newFaculty);
+		}
+	}
+
 }

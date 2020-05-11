@@ -66,7 +66,7 @@ public class StudentService {
 	}
 
 	public boolean getStudentGroupList(Student student) {
-		if (studentStorage.existGroup(student.getGroup())) {
+		if (studentStorage.checkByGroup(student.getGroup())) {
 			studentStorage.getGroupList();
 			return true;
 		} else {
@@ -76,7 +76,7 @@ public class StudentService {
 	}
 
 	public boolean getFacultyList(String faculty) {
-		if (studentStorage.existFaculty(faculty)) {
+		if (studentStorage.checkByFaculty(faculty)) {
 			studentStorage.getFacultyList();
 			return true;
 		} else {
@@ -85,9 +85,20 @@ public class StudentService {
 		return false;
 	}
 
-	public boolean changeFaculty(Student student, String faculty) {
-		if (studentStorage.existFaculty(student.getFaculty())) {
-			studentStorage.changeFaculty;
+//	public boolean changeFaculty(Student student, String faculty) {
+//		if (studentStorage.existFaculty(student.getFaculty())) {
+//			studentStorage.changeFaculty;
+//			return true;
+//		}
+//		else{
+//			Writer.write("Такого факультета не существует");
+//		}
+//		return false;
+//	}
+
+	public boolean changeFaculty(Long id, String newFaculty) {
+		if (studentStorage.checkById(id)) {
+			studentStorage.updateFacultyById(id, newFaculty);
 			return true;
 		}
 		else{
@@ -95,6 +106,7 @@ public class StudentService {
 		}
 		return false;
 	}
+
 
 	public void getAllStudents() { // Написать метод для вывода списка всех студентов
 		Writer.write("Список студентов:");
