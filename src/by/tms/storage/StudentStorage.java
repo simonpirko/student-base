@@ -79,4 +79,44 @@ public class StudentStorage {
 			e.printStackTrace();
 		}
 	}
+		public Student getStudentById (long id) {
+		String login = null;
+		String password = null;
+		String name = null;
+		String faculty = null;
+		String group = null;
+		try {
+			Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
+			PreparedStatement preparedStatement = connection.prepareStatement("select * from studentbase u where u.id = ?");
+			preparedStatement.setLong(1, id);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			resultSet.next();
+			login = resultSet.getString(2);
+			password = resultSet.getString(3);
+			name = resultSet.getString(4);
+			faculty = resultSet.getString(5);
+			group = resultSet.getString(6);
+			connection.close();
+			} catch(SQLException e){
+				e.printStackTrace();
+			}
+			return new Student(id, login , password , name , faculty , group);
+		}
+
+	public long returnIdByLogin (String login){
+		Connection connection = null;
+		long id = 0;
+		try {
+			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
+			PreparedStatement preparedStatement = connection.prepareStatement("select * from studentbase u where u.login = ?");
+			preparedStatement.setString(1, login);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			resultSet.next();
+			id = resultSet.getLong(1);
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return id;
+	}
 }
