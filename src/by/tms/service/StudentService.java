@@ -6,15 +6,7 @@ import by.tms.storage.StudentStorage;
 public class StudentService {
     private StudentStorage studentStorage = new StudentStorage();
 
-    //updateStudentById()
-	//updatePasswordById()
-	//updateNameById (long id , String name);
-	//updateFacultyById (long id , String faculty)
-	//public void updateGroupById (long id , String groupa)
-	//boolean checkById(Long id);
-	//checkByLogin(String login)
-	//public boolean checkByStudent(Student student)
-	//String getNameById(Long id)
+
     public boolean add(String name, String login, String password, String faculty, String group) {
         if (!(studentStorage.checkByLogin())) {
             Student student = new Student(name, login, password, faculty, group);
