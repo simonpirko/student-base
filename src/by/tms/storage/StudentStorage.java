@@ -70,12 +70,12 @@ public class StudentStorage {
 		}
 	}
 
-	public void updateGroupById (long id , String groupa) {
+	public void updateGroupById (long id , String group) {
 		Connection connection = null;
 		try {
 			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
 			PreparedStatement preparedStatement = connection.prepareStatement("update studentbase set groupa = ? where id = ?");
-			preparedStatement.setString(1, groupa);
+			preparedStatement.setString(1, group);
 			preparedStatement.setLong(2, id);
 			preparedStatement.executeUpdate();
 			connection.close();

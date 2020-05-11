@@ -107,6 +107,16 @@ public class StudentService {
 		return false;
 	}
 
+	public boolean changeGroup(Long id, String newGroup) {
+		if (studentStorage.checkById(id)) {
+			studentStorage.updateGroupById(id, newGroup);
+			return true;
+		}
+		else{
+			Writer.write("Такого факультета не существует");
+		}
+		return false;
+	}
 
 	public void getAllStudents() { // Написать метод для вывода списка всех студентов
 		Writer.write("Список студентов:");

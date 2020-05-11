@@ -103,4 +103,14 @@ public class StudentAction {
 		}
 	}
 
+	public void updateGroupById() {
+		Writer.write("Введите Id для обновления группы:");
+		Long id = Reader.readLong();
+		if (studentService.searchById(id)) {
+			Writer.write("Введите новую группу:");
+			String newGroup = Reader.readLine();
+			studentService.changeGroup(id, newGroup);
+		}
+	}
+
 }
