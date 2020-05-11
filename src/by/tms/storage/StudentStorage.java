@@ -7,9 +7,6 @@ import java.sql.*;
 
 public class StudentStorage {
 
-	//Welcome to Slack
-	//Hello
-
 	public void updateStudentById (long id , Student student) {
 		Connection connection = null;
 			try {
