@@ -1,44 +1,63 @@
 package by.tms.action.util;
 
+import java.text.NumberFormat;
 import java.util.Scanner;
 
 public class Reader {
-    public static double readDouble() { // метод использовать там, где нужны только цифры
-        Scanner scanner = new Scanner(System.in);
-        double number;
-        do {
-            while (!scanner.hasNextDouble()) {
-                Writer.write("A string or character, or empty string was entered, try again");
-                scanner.nextLine();
+
+
+    public static double readDouble() {
+        while (true) {
+            try {
+                double number = Double.parseDouble(readWithInvite("Enter data"));
+                if (number < 0) throw new NullPointerException();
+                return number;
+            } catch (NullPointerException | NumberFormatException e) {
+                Writer.write("Id incorrect! Try again!");
             }
-            number = scanner.nextDouble();
-            if (number < 0) Writer.write("A negative number was entered, try again");
         }
-        while (number < 0);
-        return number;
     }
 
 
-    public static String readName() {// метод использовать там, где требуется проверка на наличие спецсимволов
+    public static String readName() {
         Scanner scanner = new Scanner(System.in);
         String specialCharacters = " !#$%&'()*+,-./:;<=>?@[]^_`{|}~0123456789";
         String name = scanner.nextLine();
-        String str[] = name.split("");
-        for (int i = 0; i < str.length; i++) {
-            while (specialCharacters.contains(str[i])) {
+        String[] str = name.split("");
+        for (String s : str)
+            if (specialCharacters.contains(s)) {
                 Writer.write("String contains special characters or string is empty,try again!");
-                scanner.nextLine();
+                return null;
             }
-        }
-        return null;
+        return name;
     }
 
     public static String readLine() {
         Scanner scanner = new Scanner(System.in);
-        while (scanner.nextLine().isEmpty()) {
+        String line = scanner.nextLine();
+        if (line.isEmpty()) {
             Writer.write("Was entered empty string,try again!");
+            return null;
         }
-        return null;
+        return line;
+    }
+
+
+    public static String readWithInvite(String invite) {
+        Writer.write(invite);
+        return readLine();
+    }
+
+    public static long readId() {
+        while (true) {
+            try {
+                long id = Long.parseLong(readWithInvite("Input Student ID: "));
+                if (id < 0) throw new NumberFormatException();
+                return id;
+            } catch (NumberFormatException e) {
+                Writer.write("Id incorrect! Try again!");
+            }
+        }
     }
 }
 

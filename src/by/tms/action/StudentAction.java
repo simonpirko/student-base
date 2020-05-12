@@ -1,12 +1,20 @@
 package by.tms.action;
 
-import by.tms.service.StudentService;
+//import by.tms.service.StudentService;
+
+import by.tms.action.util.Reader;
+import by.tms.action.util.Writer;
 
 public class StudentAction {
-	private StudentService studentService = new StudentService();
 
 	public void registration(){
-		System.out.println("Enter name");
+		Writer.write("Enter name");
+		String name=Reader.readName();
+		if (name==null){
+			registration();
+		}else{
+			Writer.write(name);
+		}
 	}
 
 }
