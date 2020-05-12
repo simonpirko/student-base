@@ -1,13 +1,9 @@
 package by.tms.action;
 
-import by.tms.action.util.Reader;
-import by.tms.action.util.Writer;
 import by.tms.domain.Student;
 import by.tms.service.StudentService;
-import by.tms.storage.StudentStorage;
 
 public class StudentAction {
-	private StudentService studentService = new StudentService();
 
 	private static StudentService studentService = new StudentService();
 
@@ -132,7 +128,7 @@ public class StudentAction {
 			if(studentService.updateStudent(student))
 				writeln("Student group successfully updated!");
 		}
-
+    
 	public void registration() {
 		System.out.println("Enter name");
 	}
