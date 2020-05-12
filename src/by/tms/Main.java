@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
 //        StudentAction studentAction = new StudentAction();
 //        studentAction.registration();
-       Reader.readDouble();
+
     }
 }
 

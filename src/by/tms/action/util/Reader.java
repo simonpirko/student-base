@@ -61,21 +61,4 @@ public class Reader {
             }
         }
     }
-
-    public static String readWithInvite(String invite) {
-        Writer.write(invite);
-        return readLine();
-    }
-
-    public static long readId() {
-        while (true) {
-            try {
-                long id = Long.parseLong(readWithInvite("Input Student ID: "));
-                if (id < 0) throw new NumberFormatException();
-                return id;
-            } catch (NumberFormatException e) {
-                writeln("Id incorrect! Try again!");
-            }
-        }
-    }
 }
