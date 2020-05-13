@@ -17,6 +17,7 @@ public class AdminStorage {
             preparedStatement.setString(2, password);
             preparedStatement.setString(3, name);
             preparedStatement.setString(4, role);
+            preparedStatement.executeQuery();
             connection.close();
 
         } catch (SQLException e) {
