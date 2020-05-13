@@ -5,7 +5,7 @@ import java.sql.*;
 public class AdminStorage {
     Connection connection = null;
 
-    public void save (String login, String name, String password, String role) {
+    public void saveAdmin (String login, String name, String password, String role) {
 
         try {
             connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
