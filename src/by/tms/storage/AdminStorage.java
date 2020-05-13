@@ -22,7 +22,7 @@ public class AdminStorage {
         }
     }
 
-    public void removeByLogin (String login, String password) {
+    public void removeAdminByLogin (String login, String password) {
         try {
             connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
             PreparedStatement preparedStatement = connection.prepareStatement("delete * from admins a where a.login = ? and a.password = ?");
@@ -35,7 +35,7 @@ public class AdminStorage {
         }
     }
 
-    public void removeById (long id, String password) {
+    public void removeAdminById (long id, String password) {
         try {
             connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
             PreparedStatement preparedStatement = connection.prepareStatement("delete * from admins a where a.id = ? and a.password = ?");
@@ -48,7 +48,7 @@ public class AdminStorage {
         }
     }
 
-    public void updateNameByLogin (String login, String password, String name) {
+    public void updateAdminNameByLogin (String login, String password, String name) {
         try {
             connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
             PreparedStatement preparedStatement = connection.prepareStatement("update admins a set a.name = ? where a.login = ? and a.password = ?");
@@ -62,7 +62,7 @@ public class AdminStorage {
         }
     }
 
-    public void updateNameById (long id, String password, String newName) {
+    public void updateAdminNameById (long id, String password, String newName) {
         try {
             connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
             PreparedStatement preparedStatement = connection.prepareStatement("update admins a set a.name = ? where a.id = ? and a.password = ?");
@@ -76,7 +76,7 @@ public class AdminStorage {
         }
     }
 
-    public boolean checkByLogin (String login, String password) {
+    public boolean checkAdminByLogin (String login, String password) {
         try {
             connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
             PreparedStatement preparedStatement = connection.prepareStatement("select * from admins a where a.login = ?");
