@@ -1,11 +1,9 @@
 package by.tms.storage;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class AdminStorage {
+
     Connection connection = null;
 
     public void save (String login, String name, String password, String role) {
@@ -24,6 +22,24 @@ public class AdminStorage {
             e.printStackTrace();
         }
 
+    }
+
+    public boolean checkByRole (String login, String password, String role) {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from admins s where s.login = ?");
+            preparedStatement.setString(1, login);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                if (resultSet.getString(3).equals(password) && resultSet.getString(4).equals(role) ) {
+                   return true;
+                }
+                else return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 
