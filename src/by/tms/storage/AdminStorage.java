@@ -79,8 +79,9 @@ public class AdminStorage {
     public boolean checkAdminByLogin (String login, String password) {
         try {
             connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from admins a where a.login = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from admins a where a.login = ? and a.password = ?");
             preparedStatement.setString(1,login);
+            preparedStatement.setString(2, password);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 return true;
@@ -91,5 +92,4 @@ public class AdminStorage {
         }
         return false;
     }
-
 }
