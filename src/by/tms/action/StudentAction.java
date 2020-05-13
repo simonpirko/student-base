@@ -1,5 +1,7 @@
 package by.tms.action;
 
+import by.tms.action.util.Reader;
+import by.tms.action.util.Writer;
 import by.tms.domain.Student;
 import by.tms.service.StudentService;
 
@@ -7,15 +9,25 @@ public class StudentAction {
 
 	private static StudentService studentService = new StudentService();
 
-	public static void addStudent() {
 
-		if(studentService.add(readWithInvite("Input student Name: "),
-				readWithInvite("Input student Login: "),
-				readWithInvite("Input student Password: "),
-				readWithInvite("Input student Faculty: "),
-				readWithInvite("Input student Group: ")))
-			writeln("Student was successfully added!");
+	public void add () {
+		Writer.write("Введите имя:");
+		String name = Reader.readName();
+		Writer.write("Введите логин:");
+		String login = Reader.readLine();
+		Writer.write("Введите пароль:");
+		String password = Reader.readLine();
+		Writer.write("Введите факультет:");
+		String faculty = Reader.readLine();
+		Writer.write("Введите группу:");
+		String group = Reader.readLine();
+		if (studentService.add (name, login, password, faculty, group)) {
+			Writer.write("Студент " + login + " добавлен.");
+		} else {
+			Writer.write("Ошибка добавления, такой студент уже существует");
+		}
 	}
+
 
 	public static void removeStudent() {
 
@@ -135,23 +147,7 @@ public class StudentAction {
 
 	//
 
-	public void add() {
-		Writer.write("Введите имя:");
-		String name = Reader.readName();
-		Writer.write("Введите логин:");
-		String login = Reader.readLine();
-		Writer.write("Введите пароль:");
-		String password = Reader.readLine();
-		Writer.write("Введите факультет:");
-		String faculty = Reader.readLine();
-		Writer.write("Введите группу:");
-		String group = Reader.readLine();
-		if (studentService.add(name, login, password, faculty, group)) {
-			Writer.write("Студент " + login + " добавлен.");
-		} else {
-			Writer.write("Ошибка добавления, такой студент уже существует");
-		}
-	}
+
 
 	public void remove() { // Вариант remove, где передается целый студент. Думаю, надо передавать только String
 		Writer.write("Введите логин для удаления:");
