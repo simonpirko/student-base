@@ -4,6 +4,7 @@ public class Admin extends UsersOfStudentBase {
 
     private String role;
 
+
     public Admin(long id, String name, String login, String password) {
         super(id, name, login, password);
     }
@@ -13,6 +14,11 @@ public class Admin extends UsersOfStudentBase {
     }
 
     public void setRole(String role) {
+        this.role = role;
+    }
+
+    public Admin(long id, String name, String login, String password, String role) {
+        super(id, name, login, password);
         this.role = role;
     }
 
