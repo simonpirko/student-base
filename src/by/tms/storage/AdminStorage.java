@@ -1,46 +1,97 @@
 package by.tms.storage;
 
+import by.tms.domain.Admin;
+import by.tms.domain.Student;
+
 import java.sql.*;
 
 public class AdminStorage {
 
     Connection connection = null;
 
-    public void save (String login, String name, String password, String role) {
-
+    public void updatePasswordById (long id , String password) {
         try {
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
-            PreparedStatement preparedStatement = connection.prepareStatement("update admins set id = default login = ?, password = ?, name = ?, role = ?");
-            preparedStatement.setString(1,login);
-            preparedStatement.setString(2, password);
-            preparedStatement.setString(3, name);
-            preparedStatement.setString(4, role);
-            preparedStatement.executeQuery();
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
+            PreparedStatement preparedStatement = connection.prepareStatement("update admins set password = ? where id = ?");
+            preparedStatement.setString(1, password);
+            preparedStatement.setLong(2, id);
+            preparedStatement.executeUpdate();
             connection.close();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
-    public boolean checkByRole (String login, String password, String role) {
+    public void updatePasswordByLogin (String login , String password) {
+        try {
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
+            PreparedStatement preparedStatement = connection.prepareStatement("update admins set password = ? where login = ?");
+            preparedStatement.setString(1, password);
+            preparedStatement.setString(2, login);
+            preparedStatement.executeUpdate();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Admin findAdminByLogin (String login) {
+        long id = 0;
+        String name = null;
+        String password = null;
         try {
             Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from admins s where s.login = ?");
-            preparedStatement.setString(1, login);
+            PreparedStatement preparedStatement = connection.prepareStatement("select *from admins where login = ?");
+            preparedStatement.setString(1,login);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                if (resultSet.getString(3).equals(password) && resultSet.getString(4).equals(role) ) {
-                   return true;
-                }
-                else return false;
+            while (resultSet.next()){
+                id = resultSet.getLong(1);
+                name = resultSet.getString(2);
+                password = resultSet.getString(3);
             }
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+
+        return new Admin(id, name, password, login);
     }
 
+    public Admin findAdminById (long id) {
+        String login = null;
+        String name = null;
+        String password = null;
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
+            PreparedStatement preparedStatement = connection.prepareStatement("select *from admins where id = ?");
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                name = resultSet.getString(2);
+                password = resultSet.getString(3);
+                login = resultSet.getString(5);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return new Admin (id, name, password, login);
+    }
 
+    public long findIdByLogin (String login) {
+        long id = 0;
+          try {
+            Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
+            PreparedStatement preparedStatement = connection.prepareStatement("select *from admins where login = ?");
+            preparedStatement.setString(1,login);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                id = resultSet.getLong(1);
+              }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
 }
