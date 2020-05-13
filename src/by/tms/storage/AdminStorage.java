@@ -92,4 +92,21 @@ public class AdminStorage {
         }
         return false;
     }
+
+    public boolean checkAdminById (Long id, String password) {
+        try {
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from admins a where a.id = ? and a.password = ?");
+            preparedStatement.setLong(1,id);
+            preparedStatement.setString(2, password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return true;
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
