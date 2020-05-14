@@ -4,8 +4,7 @@ public class Admin extends UsersOfStudentBase {
 
     private String role;
 
-
-    public Admin(Long id, String name, String login, String password) {
+    public Admin(long id, String name, String login, String password) {
         super(id, name, login, password);
     }
 
