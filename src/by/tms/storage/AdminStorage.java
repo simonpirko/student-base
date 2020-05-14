@@ -9,7 +9,7 @@ public class AdminStorage {
 
         try {
             connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
-            PreparedStatement preparedStatement = connection.prepareStatement("update admins a set a.id = default a.login = ?, a.password = ?, name = ?, role = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("update admins a set a.id = default, a.login = ?, a.password = ?, name = ?, role = ?");
             preparedStatement.setString(1,login);
             preparedStatement.setString(2, password);
             preparedStatement.setString(3, name);
