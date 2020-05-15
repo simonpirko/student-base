@@ -9,6 +9,28 @@ import java.util.List;
 
 public class StudentStorage {
 
+	public Student getStudentById(Long id){
+
+		String name = null;
+		String login1 = null;
+		String password = "secret password";
+		String faculty = null;
+		String group = null;
+		try {
+			Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/student_base");
+			PreparedStatement preparedStatement = connection.prepareStatement("select *from students where id = ?");
+			preparedStatement.setLong(1,id);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()){
+				name = resultSet.getString(2);
+				login1 = resultSet.getString(3);
+				faculty = resultSet.getString(5);
+				group = resultSet.getString(6);
+			}
+
+
+public class StudentStorage {
+
 	public void updateStudentById (long id , Student student) {
 		Connection connection = null;
 			try {

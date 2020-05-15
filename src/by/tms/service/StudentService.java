@@ -7,34 +7,21 @@ import by.tms.storage.StudentStorage;
 public class StudentService {
 	private StudentStorage studentStorage = new StudentStorage();
 
-	public boolean add(String name,
-					   String login,
-					   String password,
-					   String faculty,
-					   String group) {
-		if (!(studentStorage.checkByLogin(name))) {
+	public boolean add (String name, String login, String password, String faculty, String group) {
+		if (studentStorage.checkByLogin(login)) {
 			Student student = new Student(name, login, password, faculty, group);
 			student.setLogin(student.getLogin().toUpperCase());
-			studentStorage.save(student);
+			studentStorage.saveStudent(student);
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	public boolean remove(Student student) { //По существующему логигу
-		if (studentStorage.checkByLogin(student.getLogin())) {
-			studentStorage.remove();
-			return true;
-		} else {
-			Writer.write("Таких студентов не найдено");
-			return false;
-		}
-	}
-
-	public boolean remove2(String login) { //По существующему логигу
+	public boolean remove (String login) {
 		if (studentStorage.checkByLogin(login)) {
-			studentStorage.remove();
+			long id = studentStorage.returnIdByLogin(login);
+			studentStorage.removeStudentById(id);
 			return true;
 		} else {
 			return false;
