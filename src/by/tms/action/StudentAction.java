@@ -107,19 +107,14 @@ public class StudentAction {
 
 
 	public void updateFacultyById() {
-
-		Student student = null;
-
-		if(student = getStudentById(readId()) == null) {
-			writeln("Student with such ID not found!");
-			return;
-		}
-
-		if(student.checkPassword(readWithInvite("Input Password: "))) {
-			student.setFaculty(readWithInvite("Input new Faculty: "));
-			if(studentService.updateStudent(student))
-				writeln("Student faculty successfully updated!");
-		}
+		writeln("Input id:");
+		long id = readId();
+		if (studentService.searchById(id)) {
+			String newFaculty = readWithInvite("Input new faculty:");
+			studentService.updateFacultyById (id, newFaculty) {
+				writeln("Faculty updated");
+			}
+		} else writeln("Not found id");
 	}
 
 	public void updateGroupById() {

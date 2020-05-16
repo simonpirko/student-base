@@ -125,4 +125,10 @@ public class StudentService {
 			studentStorage.updateNameById(id, name);
 		}
 	}
+
+	public void updateFacultyById (long id, String newFaculty) {
+		if (studentStorage.checkById(id)) {
+		studentStorage.updateFacultyById(id, newFaculty);
+		}
+	}
 }
