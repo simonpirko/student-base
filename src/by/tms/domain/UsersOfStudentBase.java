@@ -14,6 +14,12 @@ public abstract class UsersOfStudentBase {
         this.password = password;
     }
 
+    public UsersOfStudentBase(String name, String login, String password) {
+        this.name = name;
+        this.login = login;
+        this.password = password;
+    }
+
     public long getId() {
         return id;
     }

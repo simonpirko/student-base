@@ -21,6 +21,11 @@ public class Admin extends UsersOfStudentBase {
         this.role = role;
     }
 
+    public Admin(String name, String login, String password, String role) {
+        super(name, login, password);
+        this.role = role;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

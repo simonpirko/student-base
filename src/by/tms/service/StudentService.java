@@ -4,21 +4,22 @@ import by.tms.action.util.Writer;
 import by.tms.domain.Student;
 import by.tms.storage.StudentStorage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class StudentService {
 	private StudentStorage studentStorage = new StudentStorage();
 
 	public boolean add (String name, String login, String password, String faculty, String group) {
-		if (studentStorage.checkByLogin(login)) {
-			Student student = new Student(name, login, password, faculty, group);
-			student.setLogin(student.getLogin().toUpperCase());
-			studentStorage.saveStudent(student);
+		if (!studentStorage.checkByLogin(login)) {
+			studentStorage.saveStudent(name, login, password, faculty, group);
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	public boolean remove (String login) {
+	public boolean removeStudentByLogin (String login) {
 		if (studentStorage.checkByLogin(login)) {
 			long id = studentStorage.returnIdByLogin(login);
 			studentStorage.removeStudentById(id);
@@ -28,17 +29,16 @@ public class StudentService {
 		}
 	}
 
-	public Student searchByLogin(String login) {
+	public Student searchStudentByLogin(String login) {
 		if (studentStorage.checkByLogin(login)) {
-			return studentStorage.getStudent();
-		} else {
-		}
+			return studentStorage.getStudentByLogin(login);
+		} else
 		return null;
 	}
 
-	public boolean changePassword(Student student) {
-		if (studentStorage.checkByLogin(student.getLogin())) {
-			studentStorage.changePassword(student.getLogin()); // if(oldpassword.equals(student.getPassword()))
+	public boolean changeStudentPasswordByLogin(String login, String newPassword) {
+		if (studentStorage.checkByLogin(login)) {
+			studentStorage.updatePasswordByLogin(login, newPassword);
 			return true;
 		}
 		return false;
@@ -52,24 +52,25 @@ public class StudentService {
 		return false;
 	}
 
-	public boolean getStudentGroupList(Student student) {
-		if (studentStorage.checkByGroup(student.getGroup())) {
-			studentStorage.getGroupList();
-			return true;
-		} else {
-			Writer.write("Группа не найдена");
+	public boolean updateNameFacultyGroupById (long id, String password, String newName, String newFaculty, String newGroup) {
+		if (studentStorage.updateNameFacultyGroupById(id, password,newName, newFaculty, newGroup)) {
+		return true;
 		}
 		return false;
 	}
 
-	public boolean getFacultyList(String faculty) {
-		if (studentStorage.checkByFaculty(faculty)) {
-			studentStorage.getFacultyList();
-			return true;
-		} else {
-			Writer.write("Факультет не найден");
+	public ArrayList<Student> getStudentGroupList(String group) {
+		if (studentStorage.checkByGroup(group)) {
+			return studentStorage.getStudentGroup(group);
 		}
-		return false;
+		return null;
+	}
+
+	public ArrayList<Student> getStudentFacultyList(String faculty) {
+		if (studentStorage.checkByFaculty(faculty)) {
+			return studentStorage.getStudentFaculty(faculty);
+		}
+		return null;
 	}
 
 //	public boolean changeFaculty(Student student, String faculty) {
@@ -105,8 +106,8 @@ public class StudentService {
 		return false;
 	}
 
-	public void getAllStudents() { // Написать метод для вывода списка всех студентов
-		Writer.write("Список студентов:");
+	public List<Student> getAllStudents() { // Написать метод для вывода списка всех студентов
+		return studentStorage.getAllStudents();
 	}
 
 	public boolean searchById (Long id) {
@@ -121,4 +122,26 @@ public class StudentService {
 			studentStorage.updateNameById(id, name);
 		}
 	}
-}
+
+	public boolean updateFacultyById (long id, String newFaculty) {
+		if (studentStorage.checkById(id)) {
+		studentStorage.updateFacultyById(id, newFaculty);
+		return true;
+		}
+		return false;
+	}
+
+	public boolean updateGroupById (long id, String newGroup) {
+		if (studentStorage.checkById(id)) {
+			studentStorage.updateGroupById(id, newGroup);
+			return true;
+		}
+		return false;
+	}
+
+
+
+
+
+
+} // end of StudentService
