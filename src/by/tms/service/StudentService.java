@@ -58,10 +58,6 @@ public class StudentService {
 		return false;
 	}
 
-
-
-
-
 	public boolean getStudentGroupList(Student student) {
 		if (studentStorage.checkByGroup(student.getGroup())) {
 			studentStorage.getGroupList();
