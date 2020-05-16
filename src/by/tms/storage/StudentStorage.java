@@ -311,7 +311,7 @@ public class StudentStorage {
 	public boolean checkByFaculty (String faculty) {
 		try {
 			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
-			PreparedStatement preparedStatement = connection.prepareStatement("select * from students s where s.facultya = ?");
+			PreparedStatement preparedStatement = connection.prepareStatement("select * from students s where s.faculty = ?");
 			preparedStatement.setString(1, faculty);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
