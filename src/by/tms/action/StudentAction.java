@@ -185,4 +185,18 @@ public class StudentAction {
 			}
 		}
 	}
+
+	public void registrationStudent () {
+		String login = readWithInvite("Input login");
+		if (studentService.searchByLogin(login)) {
+			String name = readWithInvite("Input name");
+			String password = readWithInvite("Input password");
+			String faculty = readWithInvite("Input faculty");
+			String group = readWithInvite("Input group");
+			studentService.add(name, login, password, faculty, group);
+			writeln("Student added");
+		} else {
+			writeln("This login already exist");
+		}
+	}
 }

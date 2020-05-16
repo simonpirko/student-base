@@ -117,6 +117,13 @@ public class StudentService {
 		return false;
 	}
 
+	public boolean searchByLogin (String login) {
+		if (studentStorage.checkByLogin(login)) {
+			return true;
+		}
+		return false;
+	}
+
 	public void updateNameById(Long id, String name) {
 		if (studentStorage.checkById(id)) {
 			studentStorage.updateNameById(id, name);
