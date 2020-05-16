@@ -5,6 +5,7 @@ import by.tms.action.util.Writer;
 import by.tms.domain.Student;
 import by.tms.service.StudentService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static by.tms.action.util.Reader.readId;
@@ -43,8 +44,8 @@ public class StudentAction {
 	}
 
 	public void removeStudent() {
-		String login = readWithInvite("Input student Login: "),
-		if(studentService.removeStudent(login))
+		String login = readWithInvite("Input student Login: ");
+		if(studentService.removeStudentByLogin(login))
 			writeln("Student was successfully removed!");
 		else
 			writeln("Student with Login(" + login + ") not found OR password is incorrect!");
@@ -122,12 +123,7 @@ public class StudentAction {
 			writeln("Group updated");
 		else writeln("Not found id");
 	}
-    
-	public void registration() {
-		System.out.println("Enter name");
-	}
 
-	//
 
 	public void removeByLogin() {
 		Writer.write("Введите логин для удаления:");
@@ -137,11 +133,6 @@ public class StudentAction {
 		} else {
 			Writer.write("Таких студентов не найдено");
 		}
-	}
-
-	public void findAll() {
-		studentService.getAllStudents();
-		Writer.write("Список студентов.");
 	}
 
 	public void searchByLogin() {
@@ -155,37 +146,43 @@ public class StudentAction {
 		}
 	}
 
-	public void updateById() { //  Я не понял, что должно обновляться по Id
-		Writer.write("Введите ID для обновления");
-		Long id = Reader.readLong();
-	}
-
-	public void updateNameById() {
-		Writer.write("Введите Id для обновления имени:");
-		Long id = Reader.readLong();
-		Writer.write("Введите новое имя:");
-		String name = Reader.readName();
-		studentService.updateNameById(id, name);
-	}
-
-	public void updatePasswordById() {
+	public void changePasswordById() {
 		Writer.write("Введите Id для обновления пароля:");
-		Long id = Reader.readLong();
-		if (studentService.searchById(id)) {
-			Writer.write("Введите новый пароль:");
-			String newPassword = Reader.readLine();
-			studentService.changePasswordById(id, newPassword);
+		Long id = readId();
+		Writer.write("Введите новый пароль:");
+		String newPassword = Reader.readLine();
+		if (studentService.changePasswordById(id, newPassword))
+			writeln("New password set");
+		else writeln("Id not found");
+	}
+
+
+	public void registration() {
+		System.out.println("Enter name");
+	}
+
+	public void getStudentGroupList() {
+		String group = readWithInvite("Input group name");
+		Student student;
+		if (studentService.getStudentGroupList(group) != null) {
+			ArrayList<Student> studentGroupList = studentService.getStudentGroupList(group);
+			for (int i = 0; i < studentGroupList.size(); i++) {
+				student = studentGroupList.get(i);
+				writeln(student.toString());
+			}
 		}
 	}
 
-	public void updateFacById() {
-		Writer.write("Введите Id для обновления факультета:");
-		Long id = Reader.readLong();
-		if (studentService.searchById(id)) {
-			Writer.write("Введите новый факультет:");
-			String newFaculty = Reader.readLine();
-			studentService.changeFaculty(id, newFaculty);
+
+	public void getStudentFacultyList() {
+		String faculty = readWithInvite("Input faculty name");
+		Student student;
+		if (studentService.getStudentFacultyList(faculty) != null) {
+			ArrayList<Student> studentFacultyList = studentService.getStudentFacultyList(faculty);
+			for (int i = 0; i < studentFacultyList.size(); i++) {
+				student = studentFacultyList.get(i);
+				writeln(student.toString());
+			}
 		}
 	}
-
 }

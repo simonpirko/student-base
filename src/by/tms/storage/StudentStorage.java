@@ -267,4 +267,89 @@ public class StudentStorage {
 			e.printStackTrace();
 		} return false;
 	}
+
+	public boolean checkByGroup (String group) {
+		try {
+			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
+			PreparedStatement preparedStatement = connection.prepareStatement("select * from students s where s.group = ?");
+			preparedStatement.setString(1, group);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+
+	public ArrayList<Student> getStudentGroup (String inputGroup) {
+		ArrayList<Student> studentsGroup = new ArrayList<>();
+		try {
+			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
+			PreparedStatement preparedStatement = connection.prepareStatement("select * from students s where s.group = ?");
+			preparedStatement.setString(1, inputGroup);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				long id = resultSet.getLong(1);
+				String name = resultSet.getString(2);
+				String login = resultSet.getString(3);
+				String password = resultSet.getString(4);
+				String faculty = resultSet.getString(5);
+				String group = resultSet.getString(6);
+				Student student = new Student(id, name, login, password, faculty, group);
+				studentsGroup.add(student);
+			}
+			return studentsGroup;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public boolean checkByFaculty (String faculty) {
+		try {
+			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
+			PreparedStatement preparedStatement = connection.prepareStatement("select * from students s where s.facultya = ?");
+			preparedStatement.setString(1, faculty);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public ArrayList<Student> getStudentFaculty (String inputFaculty) {
+		ArrayList<Student> studentsFaculty = new ArrayList<>();
+		try {
+			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
+			PreparedStatement preparedStatement = connection.prepareStatement("select * from students s where s.faculty = ?");
+			preparedStatement.setString(1, inputFaculty);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				long id = resultSet.getLong(1);
+				String name = resultSet.getString(2);
+				String login = resultSet.getString(3);
+				String password = resultSet.getString(4);
+				String faculty = resultSet.getString(5);
+				String group = resultSet.getString(6);
+				Student student = new Student(id, name, login, password, faculty, group);
+				studentsFaculty.add(student);
+			}
+			return studentsFaculty;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+
+
+
+
+
 }

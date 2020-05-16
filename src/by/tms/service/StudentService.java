@@ -4,6 +4,7 @@ import by.tms.action.util.Writer;
 import by.tms.domain.Student;
 import by.tms.storage.StudentStorage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StudentService {
@@ -58,22 +59,18 @@ public class StudentService {
 		return false;
 	}
 
-	public boolean getStudentGroupList(Student student) {
-		if (studentStorage.checkByGroup(student.getGroup())) {
-			studentStorage.getGroupList();
-			return true;
+	public ArrayList<Student> getStudentGroupList(String group) {
+		if (studentStorage.checkByGroup(group)) {
+			return studentStorage.getStudentGroup(group);
 		}
-		return false;
+		return null;
 	}
 
-	public boolean getFacultyList(String faculty) {
+	public ArrayList<Student> getStudentFacultyList(String faculty) {
 		if (studentStorage.checkByFaculty(faculty)) {
-			studentStorage.getFacultyList();
-			return true;
-		} else {
-			Writer.write("Факультет не найден");
+			return studentStorage.getStudentFaculty(faculty);
 		}
-		return false;
+		return null;
 	}
 
 //	public boolean changeFaculty(Student student, String faculty) {
