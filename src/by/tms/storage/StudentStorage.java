@@ -212,7 +212,6 @@ public class StudentStorage {
 			PreparedStatement preparedStatement = connection.prepareStatement("select * from students s where s.id = ?");
 			preparedStatement.setLong(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();
-
 			if (resultSet.next()) {
 				return true;
 			}

@@ -109,13 +109,11 @@ public class StudentAction {
 	public void updateFacultyById() {
 		writeln("Input id:");
 		long id = readId();
-		if (studentService.searchById(id)) {
-			String newFaculty = readWithInvite("Input new faculty:");
-			studentService.updateFacultyById (id, newFaculty) {
+		if (studentService.updateFacultyById (id, readWithInvite("Input new faculty:")))
 				writeln("Faculty updated");
-			}
-		} else writeln("Not found id");
+		else writeln("Not found id");
 	}
+
 
 	public void updateGroupById() {
 

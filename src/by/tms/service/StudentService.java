@@ -126,9 +126,17 @@ public class StudentService {
 		}
 	}
 
-	public void updateFacultyById (long id, String newFaculty) {
+	public boolean updateFacultyById (long id, String newFaculty) {
 		if (studentStorage.checkById(id)) {
 		studentStorage.updateFacultyById(id, newFaculty);
+		return true;
 		}
+		return false;
 	}
-}
+
+
+
+
+
+
+} // end of StudentService
