@@ -140,7 +140,6 @@ public class StudentStorage {
 	}
 
 	public void updatePasswordById (long id , String password) {
-		Connection connection = null;
 		try {
 			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
 			PreparedStatement preparedStatement = connection.prepareStatement("update students set password = ? where id = ?");
@@ -152,6 +151,21 @@ public class StudentStorage {
 			e.printStackTrace();
 		}
 	}
+
+	public void updatePasswordByLogin (String login , String newPassword) {
+		try {
+			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
+			PreparedStatement preparedStatement = connection.prepareStatement("update students s set s.password = ? where s.login = ?");
+			preparedStatement.setString(1, newPassword);
+			preparedStatement.setString(2, login);
+			preparedStatement.executeUpdate();
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+
 
 	public void updateNameById (long id , String name) {
 		try {

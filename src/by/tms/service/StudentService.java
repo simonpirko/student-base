@@ -35,9 +35,9 @@ public class StudentService {
 		return null;
 	}
 
-	public boolean changePassword(Student student) {
-		if (studentStorage.checkByLogin(student.getLogin())) {
-			studentStorage.changePassword(student.getLogin()); // if(oldpassword.equals(student.getPassword()))
+	public boolean changeStudentPasswordByLogin(String login, String newPassword) {
+		if (studentStorage.checkByLogin(login)) {
+			studentStorage.updatePasswordByLogin(login, newPassword);
 			return true;
 		}
 		return false;

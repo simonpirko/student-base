@@ -33,6 +33,15 @@ public class StudentAction {
 		}
 	}
 
+	public void changeStudentPasswordByLogin () {
+		String login = readWithInvite("Input Login");
+		String password = readWithInvite("Input password");
+		if (studentService.changeStudentPasswordByLogin(login, password)) {
+			writeln("Password changed");
+		} else
+			writeln("Error.");
+	}
+
 
 	public void removeStudent() {
 		String login = readWithInvite("Input student Login: "),
