@@ -18,7 +18,7 @@ public class StudentService {
 		}
 	}
 
-	public boolean removeStudent (String login) {
+	public boolean removeStudentByLogin (String login) {
 		if (studentStorage.checkByLogin(login)) {
 			long id = studentStorage.returnIdByLogin(login);
 			studentStorage.removeStudentById(id);

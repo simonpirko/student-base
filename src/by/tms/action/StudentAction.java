@@ -129,21 +129,10 @@ public class StudentAction {
 
 	//
 
-
-	public void remove() { // Вариант remove, где передается целый студент. Думаю, надо передавать только String
-		Writer.write("Введите логин для удаления:");
-		Student studentForRemove = new Student();
-		String login = Reader.readLine();
-		studentForRemove.setLogin(login);
-		if (studentService.remove(studentForRemove)) {
-			Writer.write("Студент " + login + " удален");
-		}
-	}
-
-	public void remove2() {
+	public void removeByLogin() {
 		Writer.write("Введите логин для удаления:");
 		String login = Reader.readLine();
-		if (studentService.remove2(login)) {
+		if (studentService.removeStudentByLogin(login)) {
 			Writer.write("Студент " + login + " удален");
 		} else {
 			Writer.write("Таких студентов не найдено");
