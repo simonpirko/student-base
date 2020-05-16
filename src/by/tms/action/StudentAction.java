@@ -116,19 +116,12 @@ public class StudentAction {
 
 
 	public void updateGroupById() {
-
-		Student student = null;
-
-		if(student = getStudentById(readId()) == null) {
-			writeln("Student with such ID not found!");
-			return;
-		}
-
-		if(student.checkPassword(readWithInvite("Input Password: "))) {
-			student.setGroup(readWithInvite("Input new Group: "));
-			if(studentService.updateStudent(student))
-				writeln("Student group successfully updated!");
-		}
+		writeln("Input id:");
+		long id = readId();
+		if (studentService.updateGroupById(id, readWithInvite("Input new group:")))
+			writeln("Group updated");
+		else writeln("Not found id");
+	}
     
 	public void registration() {
 		System.out.println("Enter name");
@@ -204,16 +197,6 @@ public class StudentAction {
 			Writer.write("Введите новый факультет:");
 			String newFaculty = Reader.readLine();
 			studentService.changeFaculty(id, newFaculty);
-		}
-	}
-
-	public void updateGroupById() {
-		Writer.write("Введите Id для обновления группы:");
-		Long id = Reader.readLong();
-		if (studentService.searchById(id)) {
-			Writer.write("Введите новую группу:");
-			String newGroup = Reader.readLine();
-			studentService.changeGroup(id, newGroup);
 		}
 	}
 

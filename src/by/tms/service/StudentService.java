@@ -134,6 +134,14 @@ public class StudentService {
 		return false;
 	}
 
+	public boolean updateGroupById (long id, String newGroup) {
+		if (studentStorage.checkById(id)) {
+			studentStorage.updateGroupById(id, newGroup);
+			return true;
+		}
+		return false;
+	}
+
 
 
 
