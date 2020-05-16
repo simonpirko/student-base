@@ -42,7 +42,6 @@ public class StudentAction {
 			writeln("Error.");
 	}
 
-
 	public void removeStudent() {
 		String login = readWithInvite("Input student Login: "),
 		if(studentService.removeStudent(login))
@@ -51,7 +50,7 @@ public class StudentAction {
 			writeln("Student with Login(" + login + ") not found OR password is incorrect!");
 	}
 
-	public void findAll() {
+	public void findAllStudents() {
 		writeln("-= List of ALL students =-");
 		List<Student> students = studentService.getAllStudents();
 		for (int i = 0; i < students.size(); i++ ) {
