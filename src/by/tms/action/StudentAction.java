@@ -15,7 +15,7 @@ public class StudentAction {
 
 	private StudentService studentService = new StudentService();
 
-	public void add () {
+	public void addStudent () {
 		Writer.write("Введите имя:");
 		String name = Reader.readName();
 		Writer.write("Введите логин:");
