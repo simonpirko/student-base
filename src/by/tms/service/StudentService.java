@@ -4,21 +4,21 @@ import by.tms.action.util.Writer;
 import by.tms.domain.Student;
 import by.tms.storage.StudentStorage;
 
+import java.util.List;
+
 public class StudentService {
 	private StudentStorage studentStorage = new StudentStorage();
 
 	public boolean add (String name, String login, String password, String faculty, String group) {
-		if (studentStorage.checkByLogin(login)) {
-			Student student = new Student(name, login, password, faculty, group);
-			student.setLogin(student.getLogin().toUpperCase());
-			studentStorage.saveStudent(student);
+		if (!studentStorage.checkByLogin(login)) {
+			studentStorage.saveStudent(name, login, password, faculty, group);
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	public boolean remove (String login) {
+	public boolean removeStudent (String login) {
 		if (studentStorage.checkByLogin(login)) {
 			long id = studentStorage.returnIdByLogin(login);
 			studentStorage.removeStudentById(id);
@@ -28,11 +28,10 @@ public class StudentService {
 		}
 	}
 
-	public Student searchByLogin(String login) {
+	public Student searchStudentByLogin(String login) {
 		if (studentStorage.checkByLogin(login)) {
-			return studentStorage.getStudent();
-		} else {
-		}
+			return studentStorage.getStudentByLogin(login);
+		} else
 		return null;
 	}
 
@@ -105,8 +104,8 @@ public class StudentService {
 		return false;
 	}
 
-	public void getAllStudents() { // Написать метод для вывода списка всех студентов
-		Writer.write("Список студентов:");
+	public List<Student> getAllStudents() { // Написать метод для вывода списка всех студентов
+		return studentStorage.getAllStudents();
 	}
 
 	public boolean searchById (Long id) {

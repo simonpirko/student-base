@@ -13,6 +13,12 @@ public class Student extends UsersOfStudentBase {
 		this.group = group;
 	}
 
+	public Student(String name, String login, String password, String faculty, String group) {
+		super(name, login, password);
+		this.faculty = faculty;
+		this.group = group;
+	}
+
 	public String getFaculty() {
 		return faculty;
 	}

@@ -5,10 +5,15 @@ import by.tms.action.util.Writer;
 import by.tms.domain.Student;
 import by.tms.service.StudentService;
 
+import java.util.List;
+
+import static by.tms.action.util.Reader.readId;
+import static by.tms.action.util.Reader.readWithInvite;
+import static by.tms.action.util.Writer.writeln;
+
 public class StudentAction {
 
-	private static StudentService studentService = new StudentService();
-
+	private StudentService studentService = new StudentService();
 
 	public void add () {
 		Writer.write("Введите имя:");
@@ -29,36 +34,32 @@ public class StudentAction {
 	}
 
 
-	public static void removeStudent() {
-
+	public void removeStudent() {
 		String login = readWithInvite("Input student Login: "),
-				password = readWithInvite("Input student Password: ");
-
-		if(studentService.remove(login, password))
+		if(studentService.removeStudent(login))
 			writeln("Student was successfully removed!");
 		else
 			writeln("Student with Login(" + login + ") not found OR password is incorrect!");
 	}
 
-	public static void findAll() {
-
+	public void findAll() {
 		writeln("-= List of ALL students =-");
-		for(Student student : studentService.getAllStudents())
-			writeln(student);
+		List<Student> students = studentService.getAllStudents();
+		for (int i = 0; i < students.size(); i++ ) {
+			writeln(students.get(i));
+		}
 	}
 
-	public static void findByLogin() {
-
-		Student student = null;
+	public void findByLogin() {
 		String login = readWithInvite("Input Login: ");
-
-		if((student = studentService.searchByLogin(login)) != null)
-			writeln("Founded Student:\n" + student);
+		Student student = studentService.searchStudentByLogin(login);
+		if(student != null)
+			writeln("Founded Student with login:" + login +" :\n" + student.toString());
 		else
 			writeln("Student with Login(" + login + ") not found!");
 	}
 
-	public static void updateById() {
+	public void updateById() {
 
 		Student student = null;
 
@@ -76,7 +77,7 @@ public class StudentAction {
 		}
 	}
 
-	public static void updateNameById() {
+	public void updateNameById() {
 
 		Student student = null;
 
@@ -92,7 +93,7 @@ public class StudentAction {
 		}
 	}
 
-	public static void updatePasswordById() {
+	public void updatePasswordById() {
 
 		Student student = null;
 
@@ -110,7 +111,7 @@ public class StudentAction {
 		}
 	}
 
-	public static void updateFacultyById() {
+	public void updateFacultyById() {
 
 		Student student = null;
 
@@ -126,7 +127,7 @@ public class StudentAction {
 		}
 	}
 
-	public static void updateGroupById() {
+	public void updateGroupById() {
 
 		Student student = null;
 
@@ -146,7 +147,6 @@ public class StudentAction {
 	}
 
 	//
-
 
 
 	public void remove() { // Вариант remove, где передается целый студент. Думаю, надо передавать только String
