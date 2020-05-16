@@ -95,22 +95,16 @@ public class StudentAction {
 
 
 	public void updatePasswordById() {
-
-		Student student = null;
-
-		if(student = getStudentById(readId()) == null) {
+		writeln("Input id:");
+		long id = readId();
+		if(studentService.searchById(id)) {
+			String newPassword = readWithInvite("Input new password:");
+			studentService.changePasswordById(id, newPassword);
+			writeln("Input new password:");
+		}
 			writeln("Student with such ID not found!");
-			return;
-		}
-
-		if(student.checkPassword(readWithInvite("Input Password: "))) {
-			String newPassword = readWithInvite("Input NEW Paword: ");
-			String confPassword = readWithInvite("Input NEW Paword again: ");
-			if(newPassword.equals(confPassword))
-				if(studentService.updateStudent(student))
-					writeln("Password successfully changed!");
-		}
 	}
+
 
 	public void updateFacultyById() {
 
