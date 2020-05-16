@@ -145,14 +145,13 @@ public class StudentAction {
 	}
 
 	public void searchByLogin() {
-		Writer.write("Введите логин для поиска по логину:");
-		String login = Reader.readLine();
-		Student studentByLogin = studentService.searchByLogin(login);
-		if (studentByLogin == null) {
-			Writer.write("Студентов с таким логином не существует");
+		String login = readWithInvite("Введите логин для поиска по логину:");
+		Student studentByLogin = studentService.searchStudentByLogin(login);
+		if (studentByLogin != null) {
+			Writer.write("Студент " + login + " найден:");
+			writeln(studentByLogin.toString());
 		} else {
-			Writer.write("Студент " + login + " найден.");
-			Writer.write(studentByLogin);
+			Writer.write("Студентов с таким логином не существует");
 		}
 	}
 
