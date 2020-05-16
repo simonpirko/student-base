@@ -252,4 +252,20 @@ public class StudentStorage {
 		}
 		return false;
 	}
+
+	public boolean updateNameFacultyGroupById (long id, String password, String newName, String newFaculty, String newGroup) {
+		try {
+			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
+			PreparedStatement preparedStatement = connection.prepareStatement("update students s set s.name = ?, s.faculty = ?, s.group = ? where id = ?");
+			preparedStatement.setString(1, newName);
+			preparedStatement.setString(2, newFaculty);
+			preparedStatement.setString(3, newGroup);
+			preparedStatement.setLong(4, id);
+			preparedStatement.executeQuery();
+			connection.close();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} return false;
+	}
 }

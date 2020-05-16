@@ -51,12 +51,21 @@ public class StudentService {
 		return false;
 	}
 
+	public boolean updateNameFacultyGroupById (long id, String password, String newName, String newFaculty, String newGroup) {
+		if (studentStorage.updateNameFacultyGroupById(id, password,newName, newFaculty, newGroup)) {
+		return true;
+		}
+		return false;
+	}
+
+
+
+
+
 	public boolean getStudentGroupList(Student student) {
 		if (studentStorage.checkByGroup(student.getGroup())) {
 			studentStorage.getGroupList();
 			return true;
-		} else {
-			Writer.write("Группа не найдена");
 		}
 		return false;
 	}
