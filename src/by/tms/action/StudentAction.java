@@ -74,20 +74,13 @@ public class StudentAction {
 			String newName = readWithInvite("Input new name:");
 			String newFaculty = readWithInvite("Input new faculty:");
 			String newGroup = readWithInvite("Input new group:");
-			studentService.updateNameFacultyGroupById(id, readWithInvite("Input Student password:"), newName, newFaculty, newGroup);
+			String password = readWithInvite("Input Student password:");
+			studentService.updateNameFacultyGroupById(id, password, newName, newFaculty, newGroup);
 			writeln("Name, faculty, group were updated.");
 		} else
 			writeln("Student with such ID not found!");
 		}
 
-		if(student.checkPassword(readWithInvite("Input Password: "))) {
-			student.setName(readWithInvite("Input new Name: "));
-			student.setFaculty(readWithInvite("Input new Faculty: "));
-			student.setGroup(readWithInvite("Input new Group: "));
-			if(studentService.updateStudent(student))
-				writeln("Student successfully updated!");
-		}
-	}
 
 	public void updateNameById() {
 
