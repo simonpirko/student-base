@@ -13,7 +13,7 @@ public class AdminService {
                        String login,
                        String password,
                        String role) {
-        if (!(adminStorage.checkAdminByLogin(name, password))) {
+        if (!(adminStorage.checkAdminByLogin(login, password))) {
             Admin admin = new Admin(name, login, password, role);
             admin.setLogin(admin.getLogin().toUpperCase());
             adminStorage.saveAdmin(name, admin.getLogin(), password, role);
