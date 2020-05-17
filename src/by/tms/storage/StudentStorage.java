@@ -165,8 +165,6 @@ public class StudentStorage {
 		}
 	}
 
-
-
 	public void updateNameById (long id , String name) {
 		try {
 			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
@@ -346,10 +344,4 @@ public class StudentStorage {
 		}
 		return null;
 	}
-
-
-
-
-
-
 }
