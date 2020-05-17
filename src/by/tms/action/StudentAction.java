@@ -43,6 +43,15 @@ public class StudentAction {
 		}
 	}
 
+	public boolean authorizationStudent (String login, String password) {
+		if (studentService.searchByLogin(login)) {
+			if (studentService.chekPasswordByLogin(login, password)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public void changeStudentPasswordByLogin () {
 		String login = readWithInvite("Input Login");
 		String password = readWithInvite("Input password");

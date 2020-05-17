@@ -161,4 +161,21 @@ public class AdminStorage {
             }
             return false;
         }
+
+
+
+
+    public boolean checkAdminPasswordByLogin (String inputLogin, String inputPassword) {
+        try {
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from admins a set a.password = ? where a.login = ?");
+            preparedStatement.setString(1, inputPassword);
+            preparedStatement.setString(2, inputLogin);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.getString(1).equals(inputPassword)) return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     }

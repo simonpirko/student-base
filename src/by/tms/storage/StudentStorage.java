@@ -165,6 +165,20 @@ public class StudentStorage {
 		}
 	}
 
+	public boolean checkStudentPasswordByLogin (String inputLogin, String inputPassword) {
+		try {
+			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
+			PreparedStatement preparedStatement = connection.prepareStatement("select * from students s set s.password = ? where s.login = ?");
+			preparedStatement.setString(1, inputPassword);
+			preparedStatement.setString(2, inputLogin);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.getString(1).equals(inputPassword)) return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 	public void updateNameById (long id , String name) {
 		try {
 			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
@@ -296,7 +310,8 @@ public class StudentStorage {
 				String password = resultSet.getString(4);
 				String faculty = resultSet.getString(5);
 				String group = resultSet.getString(6);
-				Student student = new Student(id, name, login, password, faculty, group);
+				String role = resultSet.getString(7);
+				Student student = new Student(id, name, login, password, faculty, group, role);
 				studentsGroup.add(student);
 			}
 			return studentsGroup;
@@ -335,7 +350,8 @@ public class StudentStorage {
 				String password = resultSet.getString(4);
 				String faculty = resultSet.getString(5);
 				String group = resultSet.getString(6);
-				Student student = new Student(id, name, login, password, faculty, group);
+				String role = resultSet.getString(7);
+				Student student = new Student(id, name, login, password, faculty, group, role);
 				studentsFaculty.add(student);
 			}
 			return studentsFaculty;

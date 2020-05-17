@@ -59,6 +59,12 @@ public class StudentService {
 		return false;
 	}
 
+	public boolean chekPasswordByLogin (String login, String password) {
+		if (studentStorage.checkStudentPasswordByLogin(login, password)) return true;
+		else return false;
+	}
+
+
 	public ArrayList<Student> getStudentGroupList(String group) {
 		if (studentStorage.checkByGroup(group)) {
 			return studentStorage.getStudentGroup(group);
