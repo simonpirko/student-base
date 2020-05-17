@@ -1,7 +1,5 @@
 package by.tms.domain;
 
-import java.util.Objects;
-
 public class Student extends UsersOfStudentBase {
 
 	private String faculty;

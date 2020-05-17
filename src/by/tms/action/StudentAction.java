@@ -14,9 +14,9 @@ import static by.tms.action.util.Writer.writeln;
 
 public class StudentAction {
 
-	private StudentService studentService = new StudentService();
+	private final StudentService studentService = new StudentService();
 
-	public void addStudent () {
+	public void addStudent() {
 		Writer.write("Введите имя:");
 		String name = Reader.readName();
 		Writer.write("Введите логин:");
@@ -27,14 +27,14 @@ public class StudentAction {
 		String faculty = Reader.readLine();
 		Writer.write("Введите группу:");
 		String group = Reader.readLine();
-		if (studentService.add (name, login, password, faculty, group)) {
+		if (studentService.add(name, login, password, faculty, group)) {
 			Writer.write("Студент " + login + " добавлен.");
 		} else {
 			Writer.write("Ошибка добавления, такой студент уже существует");
 		}
 	}
 
-	public void changeStudentPasswordByLogin () {
+	public void changeStudentPasswordByLogin() {
 		String login = readWithInvite("Input Login");
 		String password = readWithInvite("Input password");
 		if (studentService.changeStudentPasswordByLogin(login, password)) {
@@ -45,7 +45,7 @@ public class StudentAction {
 
 	public void removeStudent() {
 		String login = readWithInvite("Input student Login: ");
-		if(studentService.removeStudentByLogin(login))
+		if (studentService.removeStudentByLogin(login))
 			writeln("Student was successfully removed!");
 		else
 			writeln("Student with Login(" + login + ") not found OR password is incorrect!");
@@ -54,7 +54,7 @@ public class StudentAction {
 	public void findAllStudents() {
 		writeln("-= List of ALL students =-");
 		List<Student> students = studentService.getAllStudents();
-		for (int i = 0; i < students.size(); i++ ) {
+		for (int i = 0; i < students.size(); i++) {
 			writeln(students.get(i));
 		}
 	}
@@ -62,8 +62,8 @@ public class StudentAction {
 	public void findByLogin() {
 		String login = readWithInvite("Input Login: ");
 		Student student = studentService.searchStudentByLogin(login);
-		if(student != null)
-			writeln("Founded Student with login:" + login +" :\n" + student.toString());
+		if (student != null)
+			writeln("Founded Student with login:" + login + " :\n" + student.toString());
 		else
 			writeln("Student with Login(" + login + ") not found!");
 	}
@@ -80,7 +80,7 @@ public class StudentAction {
 			writeln("Name, faculty, group were updated.");
 		} else
 			writeln("Student with such ID not found!");
-		}
+	}
 
 
 	public void updateStudentNameById() {
@@ -98,20 +98,20 @@ public class StudentAction {
 	public void updatePasswordById() {
 		writeln("Input id:");
 		long id = readId();
-		if(studentService.searchById(id)) {
+		if (studentService.searchById(id)) {
 			String newPassword = readWithInvite("Input new password:");
 			studentService.changePasswordById(id, newPassword);
 			writeln("Input new password:");
 		}
-			writeln("Student with such ID not found!");
+		writeln("Student with such ID not found!");
 	}
 
 
 	public void updateFacultyById() {
 		writeln("Input id:");
 		long id = readId();
-		if (studentService.updateFacultyById (id, readWithInvite("Input new faculty:")))
-				writeln("Faculty updated");
+		if (studentService.updateFacultyById(id, readWithInvite("Input new faculty:")))
+			writeln("Faculty updated");
 		else writeln("Not found id");
 	}
 
