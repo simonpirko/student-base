@@ -115,6 +115,8 @@ public class ConsoleApplication {
                     studentAction.getStudentGroupList();
                 case 8:
                     studentAction.getStudentFacultyList();
+                case 9:
+                    studentAction.updateFacultyById();
                 case 0:
                     menu();
                 default:
