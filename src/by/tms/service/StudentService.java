@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentService {
-	private StudentStorage studentStorage = new StudentStorage();
+	private final StudentStorage studentStorage = new StudentStorage();
 
-	public boolean add (String name, String login, String password, String faculty, String group) {
+	public boolean add(String name, String login, String password, String faculty, String group) {
 		if (!studentStorage.checkByLogin(login)) {
 			studentStorage.saveStudent(name, login, password, faculty, group);
 			return true;
@@ -19,7 +19,7 @@ public class StudentService {
 		}
 	}
 
-	public boolean removeStudentByLogin (String login) {
+	public boolean removeStudentByLogin(String login) {
 		if (studentStorage.checkByLogin(login)) {
 			long id = studentStorage.returnIdByLogin(login);
 			studentStorage.removeStudentById(id);
@@ -33,7 +33,7 @@ public class StudentService {
 		if (studentStorage.checkByLogin(login)) {
 			return studentStorage.getStudentByLogin(login);
 		} else
-		return null;
+			return null;
 	}
 
 	public boolean changeStudentPasswordByLogin(String login, String newPassword) {
@@ -52,11 +52,8 @@ public class StudentService {
 		return false;
 	}
 
-	public boolean updateNameFacultyGroupById (long id, String password, String newName, String newFaculty, String newGroup) {
-		if (studentStorage.updateNameFacultyGroupById(id, password,newName, newFaculty, newGroup)) {
-		return true;
-		}
-		return false;
+	public boolean updateNameFacultyGroupById(long id, String password, String newName, String newFaculty, String newGroup) {
+		return studentStorage.updateNameFacultyGroupById(id, password, newName, newFaculty, newGroup);
 	}
 
 	public boolean chekPasswordByLogin (String login, String password) {
@@ -94,8 +91,7 @@ public class StudentService {
 		if (studentStorage.checkById(id)) {
 			studentStorage.updateFacultyById(id, newFaculty);
 			return true;
-		}
-		else{
+		} else {
 			Writer.write("Такого факультета не существует");
 		}
 		return false;
@@ -105,8 +101,7 @@ public class StudentService {
 		if (studentStorage.checkById(id)) {
 			studentStorage.updateGroupById(id, newGroup);
 			return true;
-		}
-		else{
+		} else {
 			Writer.write("Такого факультета не существует");
 		}
 		return false;
@@ -116,11 +111,8 @@ public class StudentService {
 		return studentStorage.getAllStudents();
 	}
 
-	public boolean searchById (Long id) {
-		if (studentStorage.checkById(id)) {
-			return true;
-		}
-		return false;
+	public boolean searchById(Long id) {
+		return studentStorage.checkById(id);
 	}
 
 	public boolean searchByLogin (String login) {
@@ -136,25 +128,21 @@ public class StudentService {
 		}
 	}
 
-	public boolean updateFacultyById (long id, String newFaculty) {
+	public boolean updateFacultyById(long id, String newFaculty) {
 		if (studentStorage.checkById(id)) {
-		studentStorage.updateFacultyById(id, newFaculty);
-		return true;
+			studentStorage.updateFacultyById(id, newFaculty);
+			return true;
 		}
 		return false;
 	}
 
-	public boolean updateGroupById (long id, String newGroup) {
+	public boolean updateGroupById(long id, String newGroup) {
 		if (studentStorage.checkById(id)) {
 			studentStorage.updateGroupById(id, newGroup);
 			return true;
 		}
 		return false;
 	}
-
-
-
-
 
 
 } // end of StudentService

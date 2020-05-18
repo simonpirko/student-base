@@ -21,15 +21,6 @@ public class AdminService {
         }
     }
 
-    public boolean authorizationAdmin (String login, String password) {
-        if (adminStorage.checkAdminByLogin(login, password)) {
-            if (adminStorage.checkAdminPasswordByLogin(login, password)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public boolean removeAdmin (String adminLogin, String adminPassword) {
         if (adminStorage.checkAdminByLogin(adminLogin, adminPassword)) {
             adminStorage.removeAdminByLogin(adminLogin, adminPassword);

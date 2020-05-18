@@ -30,16 +30,6 @@ public class AdminAction {
             writeln("Student with Login(" + login + ") not found OR password is incorrect!");
     }
 
-    public boolean authorizationAdmin (String login, String password) {
-        if (adminService.checkAdminByLogin(login, password)) {
-            if (adminService.authorizationAdmin(login, password)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
     public void findAdminByLogin() {
         String adminLogin = readWithInvite("Input Administrator's Login: "), adminPassword = readWithInvite("Input Administrator's password: ");
         if ((adminService.checkAdminByLogin(adminLogin, adminPassword)))

@@ -61,18 +61,4 @@ public class Reader {
             }
         }
     }
-
-    public static int readMenuChoice() {
-        while (true) {
-            try {
-                int input = Integer.parseInt(readLine());
-                if (input < 0) throw new NumberFormatException();
-                return input;
-            } catch (NumberFormatException e) {
-                return -1;
-            }
-        }
-    }
-
-
 }

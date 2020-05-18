@@ -17,39 +17,21 @@ public class StudentAction {
 	private StudentService studentService = new StudentService();
 
 	public void addStudent () {
-		String name = readWithInvite("Введите имя:");
-		String login = readWithInvite("Введите логин:");
-		String password = readWithInvite("Введите пароль:");
-		String faculty = readWithInvite("Введите факультет:");
-		String group = readWithInvite("Введите группу:");
+		Writer.write("Введите имя:");
+		String name = Reader.readName();
+		Writer.write("Введите логин:");
+		String login = Reader.readLine();
+		Writer.write("Введите пароль:");
+		String password = Reader.readLine();
+		Writer.write("Введите факультет:");
+		String faculty = Reader.readLine();
+		Writer.write("Введите группу:");
+		String group = Reader.readLine();
 		if (studentService.add (name, login, password, faculty, group)) {
 			Writer.write("Студент " + login + " добавлен.");
 		} else {
 			Writer.write("Ошибка добавления, такой студент уже существует");
 		}
-	}
-
-	public void registrationStudent () {
-		String login = readWithInvite("Input login");
-		if (studentService.searchByLogin(login)) {
-			String name = readWithInvite("Input name");
-			String password = readWithInvite("Input password");
-			String faculty = readWithInvite("Input faculty");
-			String group = readWithInvite("Input group");
-			studentService.add(name, login, password, faculty, group);
-			writeln("Student added");
-		} else {
-			writeln("This login already exist");
-		}
-	}
-
-	public boolean authorizationStudent (String login, String password) {
-		if (studentService.searchByLogin(login)) {
-			if (studentService.chekPasswordByLogin(login, password)) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	public void changeStudentPasswordByLogin () {
@@ -100,6 +82,7 @@ public class StudentAction {
 			writeln("Student with such ID not found!");
 		}
 
+
 	public void updateStudentNameById() {
 		writeln("Input student's Id:");
 		long id = readId();
@@ -110,6 +93,7 @@ public class StudentAction {
 		}
 		writeln("Id was not found");
 	}
+
 
 	public void updatePasswordById() {
 		writeln("Input id:");
@@ -122,6 +106,7 @@ public class StudentAction {
 			writeln("Student with such ID not found!");
 	}
 
+
 	public void updateFacultyById() {
 		writeln("Input id:");
 		long id = readId();
@@ -130,6 +115,7 @@ public class StudentAction {
 		else writeln("Not found id");
 	}
 
+
 	public void updateGroupById() {
 		writeln("Input id:");
 		long id = readId();
@@ -137,6 +123,7 @@ public class StudentAction {
 			writeln("Group updated");
 		else writeln("Not found id");
 	}
+
 
 	public void removeByLogin() {
 		Writer.write("Введите логин для удаления:");
@@ -169,6 +156,11 @@ public class StudentAction {
 		else writeln("Id not found");
 	}
 
+
+	public void registration() {
+		System.out.println("Enter name");
+	}
+
 	public void getStudentGroupList() {
 		String group = readWithInvite("Input group name");
 		Student student;
@@ -180,6 +172,7 @@ public class StudentAction {
 			}
 		}
 	}
+
 
 	public void getStudentFacultyList() {
 		String faculty = readWithInvite("Input faculty name");
