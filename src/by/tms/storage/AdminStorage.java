@@ -5,7 +5,6 @@ import by.tms.domain.Admin;
 import java.sql.*;
 
 public class AdminStorage {
-
     Connection connection = null;
 
     public void saveAdmin (String name, String login, String password, String role) {
@@ -178,4 +177,4 @@ public class AdminStorage {
         }
         return false;
     }
-    }
+}

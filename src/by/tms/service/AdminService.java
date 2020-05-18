@@ -4,7 +4,6 @@ import by.tms.domain.Admin;
 import by.tms.storage.AdminStorage;
 
 public class AdminService {
-
     private AdminStorage adminStorage = new AdminStorage();
 
     public boolean addAdmin(String name,
@@ -55,7 +54,4 @@ public class AdminService {
             return true;
         } else return false;
     }
-
-
-
 }

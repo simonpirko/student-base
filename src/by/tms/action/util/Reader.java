@@ -1,12 +1,8 @@
 package by.tms.action.util;
 
-import java.text.NumberFormat;
 import java.util.Scanner;
 
-import static by.tms.action.util.Writer.writeln;
-
 public class Reader {
-
 
     public static double readDouble() {
         while (true) {
@@ -73,6 +69,4 @@ public class Reader {
             }
         }
     }
-
-
 }

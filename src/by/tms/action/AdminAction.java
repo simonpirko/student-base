@@ -1,12 +1,11 @@
 package by.tms.action;
 
 import by.tms.action.util.Writer;
-import by.tms.domain.Admin;
-import by.tms.domain.Student;
 import by.tms.service.AdminService;
 
-import static by.tms.action.util.Reader.*;
-import static by.tms.action.util.Writer.*;
+import static by.tms.action.util.Reader.readId;
+import static by.tms.action.util.Reader.readWithInvite;
+import static by.tms.action.util.Writer.writeln;
 
 public class AdminAction {
 
