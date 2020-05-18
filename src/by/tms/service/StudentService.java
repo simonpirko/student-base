@@ -56,6 +56,12 @@ public class StudentService {
 		return studentStorage.updateNameFacultyGroupById(id, password, newName, newFaculty, newGroup);
 	}
 
+	public boolean chekPasswordByLogin (String login, String password) {
+		if (studentStorage.checkStudentPasswordByLogin(login, password)) return true;
+		else return false;
+	}
+
+
 	public ArrayList<Student> getStudentGroupList(String group) {
 		if (studentStorage.checkByGroup(group)) {
 			return studentStorage.getStudentGroup(group);
@@ -107,6 +113,13 @@ public class StudentService {
 
 	public boolean searchById(Long id) {
 		return studentStorage.checkById(id);
+	}
+
+	public boolean searchByLogin (String login) {
+		if (studentStorage.checkByLogin(login)) {
+			return true;
+		}
+		return false;
 	}
 
 	public void updateNameById(Long id, String name) {
