@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentStorage {
-
-	//Welcome to Slack
 	Connection connection = null;
 
 	public void saveStudent(String name, String login, String password, String faculty, String group) {
@@ -166,7 +164,6 @@ public class StudentStorage {
 		}
 	}
 
-<<<<<<<<< Temporary merge branch 1
 	public boolean checkStudentPasswordByLogin (String inputLogin, String inputPassword) {
 		try {
 			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
@@ -182,10 +179,6 @@ public class StudentStorage {
 	}
 
 	public void updateNameById (long id , String name) {
-=========
-
-	public void updateNameById(long id, String name) {
->>>>>>>>> Temporary merge branch 2
 		try {
 			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
 			PreparedStatement preparedStatement = connection.prepareStatement("update studens set name = ? where id = ?");
@@ -367,9 +360,4 @@ public class StudentStorage {
 		}
 		return null;
 	}
-<<<<<<<<< Temporary merge branch 1
-=========
-
-
->>>>>>>>> Temporary merge branch 2
 }

@@ -2,72 +2,16 @@ package by.tms.domain;
 
 public class Admin extends UsersOfStudentBase {
 
-<<<<<<<<< Temporary merge branch 1
-    public Admin(long id, String name, String login, String password, String role) {
-        super(id, name, login, password, role);
-    }
-
-    public Admin(String name, String login, String password, String role) {
-        super(name, login, password, role);
-    }
-
-    @Override
-    public String toString() {
-        return "Admin{}";
-    }
-}
-=========
-	private String role;
-
-	public Admin(long id, String name, String login, String password) {
-		super(id, name, login, password);
-	}
-
 	public Admin(long id, String name, String login, String password, String role) {
-		super(id, name, login, password);
-		this.role = role;
+		super(id, name, login, password, role);
 	}
 
 	public Admin(String name, String login, String password, String role) {
-		super(name, login, password);
-		this.role = role;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		if (!super.equals(o)) return false;
-
-		Admin admin = (Admin) o;
-
-		return role != null ? role.equals(admin.role) : admin.role == null;
-	}
-
-	@Override
-	public int hashCode() {
-		int result = super.hashCode();
-		result = 31 * result + (role != null ? role.hashCode() : 0);
-		return result;
+		super(name, login, password, role);
 	}
 
 	@Override
 	public String toString() {
-		return "Admin{" +
-				"role='" + role + '\'' +
-				'}';
+		return "Admin{}";
 	}
 }
-
-
-
-
->>>>>>>>> Temporary merge branch 2

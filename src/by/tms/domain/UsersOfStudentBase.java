@@ -6,18 +6,22 @@ public abstract class UsersOfStudentBase {
     private String name;
     private String login;
     private String password;
+    private String role;
 
-    public UsersOfStudentBase(long id, String name, String login, String password) {
+
+    public UsersOfStudentBase(long id, String name, String login, String password, String role) {
         this.id = id;
         this.name = name;
         this.login = login;
         this.password = password;
+        this.role = role;
     }
 
-    public UsersOfStudentBase(String name, String login, String password) {
+    public UsersOfStudentBase(String name, String login, String password, String role) {
         this.name = name;
         this.login = login;
         this.password = password;
+        this.role = role;
     }
 
     public long getId() {
@@ -52,6 +56,14 @@ public abstract class UsersOfStudentBase {
         this.password = password;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -62,7 +74,8 @@ public abstract class UsersOfStudentBase {
         if (id != that.id) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (login != null ? !login.equals(that.login) : that.login != null) return false;
-        return password != null ? password.equals(that.password) : that.password == null;
+        if (password != null ? !password.equals(that.password) : that.password != null) return false;
+        return role != null ? role.equals(that.role) : that.role == null;
     }
 
     @Override
@@ -71,6 +84,7 @@ public abstract class UsersOfStudentBase {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (login != null ? login.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (role != null ? role.hashCode() : 0);
         return result;
     }
 
@@ -81,6 +95,7 @@ public abstract class UsersOfStudentBase {
                 ", name='" + name + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
                 '}';
     }
 }

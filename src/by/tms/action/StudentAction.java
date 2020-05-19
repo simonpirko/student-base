@@ -16,7 +16,6 @@ public class StudentAction {
 
 	private final StudentService studentService = new StudentService();
 
-<<<<<<<<< Temporary merge branch 1
 	public void addStudent () {
 		String name = readWithInvite("Введите имя:");
 		String login = readWithInvite("Введите логин:");
@@ -24,27 +23,12 @@ public class StudentAction {
 		String faculty = readWithInvite("Введите факультет:");
 		String group = readWithInvite("Введите группу:");
 		if (studentService.add (name, login, password, faculty, group)) {
-=========
-	public void addStudent() {
-		Writer.write("Введите имя:");
-		String name = Reader.readName();
-		Writer.write("Введите логин:");
-		String login = Reader.readLine();
-		Writer.write("Введите пароль:");
-		String password = Reader.readLine();
-		Writer.write("Введите факультет:");
-		String faculty = Reader.readLine();
-		Writer.write("Введите группу:");
-		String group = Reader.readLine();
-		if (studentService.add(name, login, password, faculty, group)) {
->>>>>>>>> Temporary merge branch 2
 			Writer.write("Студент " + login + " добавлен.");
 		} else {
 			Writer.write("Ошибка добавления, такой студент уже существует");
 		}
 	}
 
-<<<<<<<<< Temporary merge branch 1
 	public void registrationStudent () {
 		String login = readWithInvite("Input login");
 		if (studentService.searchByLogin(login)) {
@@ -69,9 +53,6 @@ public class StudentAction {
 	}
 
 	public void changeStudentPasswordByLogin () {
-=========
-	public void changeStudentPasswordByLogin() {
->>>>>>>>> Temporary merge branch 2
 		String login = readWithInvite("Input Login");
 		String password = readWithInvite("Input password");
 		if (studentService.changeStudentPasswordByLogin(login, password)) {

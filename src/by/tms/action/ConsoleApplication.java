@@ -5,20 +5,14 @@ import static by.tms.action.util.Writer.writeln;
 
 public class ConsoleApplication {
 
-<<<<<<<<< Temporary merge branch 1
     StudentAction studentAction = new StudentAction();
     AdminAction adminAction = new AdminAction();
 
     public void run() {
-=========
-	public void run() {
->>>>>>>>> Temporary merge branch 2
 
-	}
+    }
 
-	public void menu() {
-
-<<<<<<<<< Temporary merge branch 1
+    public void menu() {
         int choice = 0;
         String studentLogin = "";
         String studentPassword = "";
@@ -32,8 +26,8 @@ public class ConsoleApplication {
             writeln("Выход - 0");
             choice = readMenuChoice();
             if ((choice == -1)) {
-            writeln("Введите корректное значение");
-            break;
+                writeln("Введите корректное значение");
+                break;
             }
             else {
                 switch (choice) {
@@ -84,7 +78,7 @@ public class ConsoleApplication {
                 default:
                     writeln("Некорректное значение");
             }
-        studentChoice = -1;
+            studentChoice = -1;
         }
     }
 
@@ -130,29 +124,4 @@ public class ConsoleApplication {
             adminChoice = -1;
         }
     }
-=========
-	}
->>>>>>>>> Temporary merge branch 2
 }
-
-//                   case 1: studentAction.addStudent();
-//                           case 2: studentAction.removeByLogin();
-//                           case 3: studentAction.findByLogin();
-//                           case 4: studentAction.updateStudentNameById();
-//                           case 5: studentAction.changeStudentPasswordByLogin();
-//                           case 6: studentAction.updateFacultyById();
-//                           case 7: studentAction.updateGroupById();
-//                           case 8: studentAction.findAllStudents();
-//                           case 9: studentAction.getStudentGroupList();
-//                           case 10: studentAction.getStudentFacultyList();
-//                           case 11: studentAction.updateFacultyById();
-//writeln("Удалить студента - 2");
-//    writeln("Найти студента по логину - 3");
-//    writeln("Изменить имя студента по Id- 4");
-//    writeln("Изменить пароль студента по логину - 5");
-//    writeln("Изменить название факультета - 6");
-//    writeln("Изменить название группы - 7");
-//    writeln("Вывести список всех студентов - 8");
-//    writeln("Вывести список всех студентов группы - 9");
-//    writeln("Вывести список все студентов факультета - 10");
-//    writeln("Обновить название факультета по Id- 11");
