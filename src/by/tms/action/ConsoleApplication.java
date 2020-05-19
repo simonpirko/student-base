@@ -14,10 +14,13 @@ public class ConsoleApplication {
 
     public void menu() {
         int choice = 0;
-        String studentLogin = "";
-        String studentPassword = "";
-        String adminLogin = "";
-        String adminPassword = "";
+        String studentLogin;
+        String studentPassword;
+        String studentName;
+        String studentFaculty;
+        String studentGroup;
+        String adminLogin;
+        String adminPassword;
 
         while (choice != 0) {
             writeln("Меню:");
@@ -28,8 +31,7 @@ public class ConsoleApplication {
             if ((choice == -1)) {
                 writeln("Введите корректное значение");
                 break;
-            }
-            else {
+            } else {
                 switch (choice) {
                     case 1:
                         writeln("Авторизация студента - 1, Авторизация администратора - 2, Авторизация модератора - 3");
@@ -38,28 +40,57 @@ public class ConsoleApplication {
                             case 1:
                                 studentLogin = readWithInvite("Input student login");
                                 studentPassword = readWithInvite("Input student password");
-                                if (studentAction.authorizationStudent(studentLogin, studentPassword))
+                                if (studentAction.authorizationStudent(studentLogin, studentPassword)) {
                                     casesForStudent();
+                                    writeln("Auth ok!");
+                                } else {
+                                    writeln("Error in login or password!");
+                                    break;
+                                }
+
+                            case 2:
+                                adminLogin = readWithInvite("Input admin login");
+                                adminPassword = readWithInvite("Input admin password");
+                                if (adminAction.authorizationAdmin(adminLogin, adminPassword)) {
+                                    casesForAdmin();
+                                } else {
+                                    writeln("Error in login or password!");
+                                    break;
+                                }
+                        }
+                    case 2:
+                        writeln("Регистрация студента - 1, Регистрация администратора - 2, Регистрация модератора - 3");
+                        int regChoice = readMenuChoice();
+                        switch (regChoice) {
+                            case 1:
+                                studentLogin = readWithInvite("Input student login");
+                                studentPassword = readWithInvite("Input student password");
+                                studentName = readWithInvite("Input name");
+                                studentFaculty = readWithInvite("Input faculty");
+                                studentGroup = readWithInvite("Input group");
+                                if (studentAction.registrationStudent(studentName, studentLogin, studentPassword, studentFaculty, studentGroup)) {
+                                    writeln("Student + " + studentName + " added");
+                                    casesForStudent();
+                                    } else {
+                                    writeln("This login already exist. Try another.");
+                                    break;
+                                }
                             case 2:
                                 adminLogin = readWithInvite("Input admin login");
                                 adminPassword = readWithInvite("Input admin password");
                                 if (adminAction.authorizationAdmin(adminLogin, adminPassword)) {
                                     casesForAdmin();
                                 }
-
+                            case 0:
+                                break;
+                            default:
+                                writeln("Введите корректное значение");
                         }
-                    case 2:
-                        writeln("Регистрация студента - 1");
-                        writeln("Регистрация администратора - 2");
-                        writeln("Регистрация модератора - 3");
-                    case 0:
-                        break;
-                    default:
-                        writeln("Введите корректное значение");
                 }
             }
         }
     }
+
     public void casesForStudent() {
         int studentChoice = 0;
         while (studentChoice != -1) {
