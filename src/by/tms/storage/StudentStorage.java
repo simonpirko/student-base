@@ -11,7 +11,7 @@ public class StudentStorage {
 	//Welcome to Slack
 	Connection connection = null;
 
-	public void saveStudent (String name, String login, String password, String faculty, String group) {
+	public void saveStudent(String name, String login, String password, String faculty, String group) {
 		try {
 			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
 			PreparedStatement preparedStatement = connection.prepareStatement("update students s set s.id = default, set s.name = ?, set s.login = ?, set s.password = ?, set s.faculty = ?, set s.group = ?");
@@ -27,7 +27,7 @@ public class StudentStorage {
 		}
 	}
 
-	public long returnIdByLogin (String login) {
+	public long returnIdByLogin(String login) {
 		try {
 			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
 			PreparedStatement preparedStatement = connection.prepareStatement("select * from students s where s.login = ?");
@@ -42,7 +42,7 @@ public class StudentStorage {
 		return -1;
 	}
 
-	public boolean removeStudentById (Long id) {
+	public boolean removeStudentById(Long id) {
 		try {
 			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
 			PreparedStatement preparedStatement = connection.prepareStatement("delete * from students s where s.id = ?");
@@ -52,10 +52,11 @@ public class StudentStorage {
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} return false;
+		}
+		return false;
 	}
 
-	public ArrayList<Student> getAllStudents () {
+	public ArrayList<Student> getAllStudents() {
 		try {
 			long id = 0;
 			String name = "";
@@ -64,7 +65,7 @@ public class StudentStorage {
 			String faculty = "";
 			String group = "";
 			Student student = null;
-			List<Student> listOfStudents = new  ArrayList();
+			List<Student> listOfStudents = new ArrayList();
 			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
 			PreparedStatement preparedStatement = connection.prepareStatement("select * from students");
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -90,7 +91,7 @@ public class StudentStorage {
 		return null;
 	}
 
-	public Student getStudentByLogin (String inputLogin) {
+	public Student getStudentByLogin(String inputLogin) {
 		try {
 			long id = 0;
 			String name = "";
@@ -122,8 +123,8 @@ public class StudentStorage {
 		return null;
 	}
 
-	public void updateStudentById (long id , Student student) {
-			try {
+	public void updateStudentById(long id, Student student) {
+		try {
 			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
 			PreparedStatement preparedStatement = connection.prepareStatement("update students s set s.login = ?, s.password = ?, s.name = ?, s.faculty = ?, s.group = ? where s.id = ?");
 			preparedStatement.setString(1, student.getLogin());
@@ -139,7 +140,7 @@ public class StudentStorage {
 		}
 	}
 
-	public void updatePasswordById (long id , String password) {
+	public void updatePasswordById(long id, String password) {
 		try {
 			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
 			PreparedStatement preparedStatement = connection.prepareStatement("update students set password = ? where id = ?");
@@ -152,7 +153,7 @@ public class StudentStorage {
 		}
 	}
 
-	public void updatePasswordByLogin (String login , String newPassword) {
+	public void updatePasswordByLogin(String login, String newPassword) {
 		try {
 			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
 			PreparedStatement preparedStatement = connection.prepareStatement("update students s set s.password = ? where s.login = ?");
@@ -165,9 +166,26 @@ public class StudentStorage {
 		}
 	}
 
-
+<<<<<<<<< Temporary merge branch 1
+	public boolean checkStudentPasswordByLogin (String inputLogin, String inputPassword) {
+		try {
+			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
+			PreparedStatement preparedStatement = connection.prepareStatement("select * from students s set s.password = ? where s.login = ?");
+			preparedStatement.setString(1, inputPassword);
+			preparedStatement.setString(2, inputLogin);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.getString(1).equals(inputPassword)) return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
 	public void updateNameById (long id , String name) {
+=========
+
+	public void updateNameById(long id, String name) {
+>>>>>>>>> Temporary merge branch 2
 		try {
 			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
 			PreparedStatement preparedStatement = connection.prepareStatement("update studens set name = ? where id = ?");
@@ -180,7 +198,7 @@ public class StudentStorage {
 		}
 	}
 
-	public void updateFacultyById (long id , String faculty) {
+	public void updateFacultyById(long id, String faculty) {
 		try {
 			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
 			PreparedStatement preparedStatement = connection.prepareStatement("update students set faculty = ? where id = ?");
@@ -193,7 +211,7 @@ public class StudentStorage {
 		}
 	}
 
-	public void updateGroupById (long id , String groupa) {
+	public void updateGroupById(long id, String groupa) {
 		try {
 			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
 			PreparedStatement preparedStatement = connection.prepareStatement("update students set groupa = ? where id = ?");
@@ -241,7 +259,7 @@ public class StudentStorage {
 			Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/student_base");
 			PreparedStatement preparedStatement = connection.prepareStatement("select * from students s where s.id = ? or s.login = ?");
 			preparedStatement.setLong(1, student.getId());
-			preparedStatement.setString(2,student.getLogin());
+			preparedStatement.setString(2, student.getLogin());
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				return true;
@@ -252,7 +270,7 @@ public class StudentStorage {
 		return false;
 	}
 
-	public boolean updateNameFacultyGroupById (long id, String password, String newName, String newFaculty, String newGroup) {
+	public boolean updateNameFacultyGroupById(long id, String password, String newName, String newFaculty, String newGroup) {
 		try {
 			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
 			PreparedStatement preparedStatement = connection.prepareStatement("update students s set s.name = ?, s.faculty = ?, s.group = ? where id = ?");
@@ -265,10 +283,11 @@ public class StudentStorage {
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} return false;
+		}
+		return false;
 	}
 
-	public boolean checkByGroup (String group) {
+	public boolean checkByGroup(String group) {
 		try {
 			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
 			PreparedStatement preparedStatement = connection.prepareStatement("select * from students s where s.group = ?");
@@ -284,7 +303,7 @@ public class StudentStorage {
 	}
 
 
-	public ArrayList<Student> getStudentGroup (String inputGroup) {
+	public ArrayList<Student> getStudentGroup(String inputGroup) {
 		ArrayList<Student> studentsGroup = new ArrayList<>();
 		try {
 			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
@@ -298,7 +317,8 @@ public class StudentStorage {
 				String password = resultSet.getString(4);
 				String faculty = resultSet.getString(5);
 				String group = resultSet.getString(6);
-				Student student = new Student(id, name, login, password, faculty, group);
+				String role = resultSet.getString(7);
+				Student student = new Student(id, name, login, password, faculty, group, role);
 				studentsGroup.add(student);
 			}
 			return studentsGroup;
@@ -308,7 +328,7 @@ public class StudentStorage {
 		return null;
 	}
 
-	public boolean checkByFaculty (String faculty) {
+	public boolean checkByFaculty(String faculty) {
 		try {
 			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
 			PreparedStatement preparedStatement = connection.prepareStatement("select * from students s where s.faculty = ?");
@@ -323,7 +343,7 @@ public class StudentStorage {
 		return false;
 	}
 
-	public ArrayList<Student> getStudentFaculty (String inputFaculty) {
+	public ArrayList<Student> getStudentFaculty(String inputFaculty) {
 		ArrayList<Student> studentsFaculty = new ArrayList<>();
 		try {
 			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
@@ -337,7 +357,8 @@ public class StudentStorage {
 				String password = resultSet.getString(4);
 				String faculty = resultSet.getString(5);
 				String group = resultSet.getString(6);
-				Student student = new Student(id, name, login, password, faculty, group);
+				String role = resultSet.getString(7);
+				Student student = new Student(id, name, login, password, faculty, group, role);
 				studentsFaculty.add(student);
 			}
 			return studentsFaculty;
@@ -346,10 +367,9 @@ public class StudentStorage {
 		}
 		return null;
 	}
+<<<<<<<<< Temporary merge branch 1
+=========
 
 
-
-
-
-
+>>>>>>>>> Temporary merge branch 2
 }
