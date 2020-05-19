@@ -29,17 +29,12 @@ public class StudentAction {
 		}
 	}
 
-	public void registrationStudent () {
-		String login = readWithInvite("Input login");
+	public boolean registrationStudent (String name, String login, String password, String faculty,String group) {
 		if (studentService.searchByLogin(login)) {
-			String name = readWithInvite("Input name");
-			String password = readWithInvite("Input password");
-			String faculty = readWithInvite("Input faculty");
-			String group = readWithInvite("Input group");
 			studentService.add(name, login, password, faculty, group);
-			writeln("Student added");
+			return true;
 		} else {
-			writeln("This login already exist");
+			return false;
 		}
 	}
 

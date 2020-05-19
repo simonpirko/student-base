@@ -13,11 +13,11 @@ public class AdminAction {
 
     public void addAdmin() {
         String newAdminName = readWithInvite("Input administrator's Name: "),
-               newAdminLogin = readWithInvite("Input administrator's Login: "),
-               newAdminPassword = readWithInvite("Input administrator's Password: "),
-               newAdminRole = "Full access";
+                newAdminLogin = readWithInvite("Input administrator's Login: "),
+                newAdminPassword = readWithInvite("Input administrator's Password: "),
+                newAdminRole = "Full access";
         if (adminService.addAdmin(newAdminName, newAdminLogin, newAdminPassword, newAdminRole));
-            writeln("Administrator " + newAdminName + " was successfully added!");
+        writeln("Administrator " + newAdminName + " was successfully added!");
     }
 
     public void removeAdmin() {
@@ -48,9 +48,9 @@ public class AdminAction {
     }
 
     public void findAdminById() {
-       writeln("Input Administrator's Id: ");
-       long adminId = readId();
-       String adminPassword = readWithInvite("Input Administrator's password: ");
+        writeln("Input Administrator's Id: ");
+        long adminId = readId();
+        String adminPassword = readWithInvite("Input Administrator's password: ");
         if ((adminService.checkAdminById(adminId, adminPassword)))
             writeln("Founded Administrator with Id: " + adminId);
         else
@@ -62,9 +62,8 @@ public class AdminAction {
         Long adminId = readId();
         String adminPassword = readWithInvite("Input Administrator's password:");
         String adminNewName = readWithInvite("Input Administrator's new name:");
-            if (adminService.updateAdminNameById(adminId, adminPassword, adminNewName))
-                Writer.writeln("New name of Administrator with id " + adminId + " was set");
-            else writeln("Id " + adminId + " or password is incorrect!");
+        if (adminService.updateAdminNameById(adminId, adminPassword, adminNewName))
+            Writer.writeln("New name of Administrator with id " + adminId + " was set");
+        else writeln("Id " + adminId + " or password is incorrect!");
     }
 }
-

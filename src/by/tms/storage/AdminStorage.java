@@ -111,55 +111,55 @@ public class AdminStorage {
     }
 
 
-        public void updateAdminNameById (long id, String password, String newName) {
-            try {
-                connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
-                PreparedStatement preparedStatement = connection.prepareStatement("update admins a set a.name = ? where a.id = ? and a.password = ?");
-                preparedStatement.setString(1, newName);
-                preparedStatement.setLong(2, id);
-                preparedStatement.setString(3, password);
-                preparedStatement.executeQuery();
+    public void updateAdminNameById (long id, String password, String newName) {
+        try {
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
+            PreparedStatement preparedStatement = connection.prepareStatement("update admins a set a.name = ? where a.id = ? and a.password = ?");
+            preparedStatement.setString(1, newName);
+            preparedStatement.setLong(2, id);
+            preparedStatement.setString(3, password);
+            preparedStatement.executeQuery();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public boolean checkAdminById (Long id, String password){
+        try {
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from admins a where a.id = ? and a.password = ?");
+            preparedStatement.setLong(1, id);
+            preparedStatement.setString(2, password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
                 connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
+                return true;
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return false;
+    }
 
 
-        public boolean checkAdminById (Long id, String password){
-            try {
-                connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
-                PreparedStatement preparedStatement = connection.prepareStatement("select * from admins a where a.id = ? and a.password = ?");
-                preparedStatement.setLong(1, id);
-                preparedStatement.setString(2, password);
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if (resultSet.next()) {
-                    connection.close();
-                    return true;
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+    public boolean checkAdminByLogin (String adminLogin, String adminPassword){
+        try {
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from admins a where a.login = ? and a.password = ?");
+            preparedStatement.setString(1, adminLogin);
+            preparedStatement.setString(2, adminPassword);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                connection.close();
+                return true;
             }
-            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
-
-        public boolean checkAdminByLogin (String adminLogin, String adminPassword){
-            try {
-                connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
-                PreparedStatement preparedStatement = connection.prepareStatement("select * from admins a where a.login = ? and a.password = ?");
-                preparedStatement.setString(1, adminLogin);
-                preparedStatement.setString(2, adminPassword);
-                ResultSet resultSet = preparedStatement.executeQuery();
-                if (resultSet.next()) {
-                    connection.close();
-                    return true;
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            return false;
-        }
+        return false;
+    }
 
 
 
