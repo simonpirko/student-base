@@ -1,10 +1,16 @@
 package by.tms.storage;
 
+import by.tms.domain.Admin;
 import by.tms.domain.Student;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.DriverManager;
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import static by.tms.action.util.Writer.writeln;
 
 public class StudentStorage {
 	Connection connection = null;
@@ -24,6 +30,7 @@ public class StudentStorage {
 			e.printStackTrace();
 		}
 	}
+
 
 	public long returnIdByLogin(String login) {
 		try {
@@ -262,6 +269,37 @@ public class StudentStorage {
 		}
 		return false;
 	}
+
+	public static void main (String[] args) {
+
+		Connection connection = null;
+//		public Admin checkJoin () {
+			try {
+				connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "learn2000_");
+				String sql = "select * from admins a join roles r on a.role_id=r.id where a.login=?";
+				PreparedStatement preparedStatement = connection.prepareStatement(sql);
+				preparedStatement.setString(1, "Vasya");
+				ResultSet resultSet = preparedStatement.executeQuery();
+				System.out.println(resultSet.next());
+				String checkName = resultSet.getString(2);
+				long checkRole = resultSet.getLong(5);
+
+//				connection.prepareStatement("");
+				connection.close();
+				writeln(checkName + " " + checkRole);
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+
+//			return null;
+		}
+//	}
+
+
+
+
 
 	public boolean updateNameFacultyGroupById(long id, String password, String newName, String newFaculty, String newGroup) {
 		try {
