@@ -15,49 +15,19 @@ public class AdminStorage {
             connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "learn2000_");
             String sql = ("insert into admins values (default, ?, ?, ?, ?");
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            // TODO: 5/24/20 !
             preparedStatement.setString(1, "Vasya2");
             preparedStatement.setString(2, "123");
             preparedStatement.setString(3, "vas2");
             preparedStatement.setInt(4, 2);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.execute();
             connection.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-//        try {
-//            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
-//            PreparedStatement preparedStatement = connection.prepareStatement("update admins set id = default, set name = ?, set login = ?, set password = ?, set role = ?");
-//            preparedStatement.setString(1, name);
-//            preparedStatement.setString(2, login);
-//            preparedStatement.setString(3, password);
-//            preparedStatement.setString(4, role);
-//            preparedStatement.executeQuery();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
     }
-
-    public static void main (String[] args) {
-
-//        Connection connection = null;
-//        try {
-//            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "learn2000_");
-//            String sql = ("insert into admins values (default, ?, ?, ?, ?");
-//            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-//            preparedStatement.setString(1, "Vasya2");
-//            preparedStatement.setString(2, "123");
-//            preparedStatement.setString(3, "vas2");
-//            preparedStatement.setInt(4, 2);
-//            ResultSet resultSet = preparedStatement.executeQuery();
-//            connection.close();
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-    }
-
-
 
     public void updatePasswordById(long id, String password) {
         try {

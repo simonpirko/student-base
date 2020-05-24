@@ -283,19 +283,13 @@ public class StudentStorage {
 				System.out.println(resultSet.next());
 				String checkName = resultSet.getString(2);
 				long checkRole = resultSet.getLong(5);
-
-//				connection.prepareStatement("");
 				connection.close();
 				writeln(checkName + " " + checkRole);
 
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-
-
-//			return null;
 		}
-//	}
 
 
 
