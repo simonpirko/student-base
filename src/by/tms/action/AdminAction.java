@@ -14,11 +14,19 @@ public class AdminAction {
     public void addAdmin() {
         String newAdminName = readWithInvite("Input administrator's Name: "),
                 newAdminLogin = readWithInvite("Input administrator's Login: "),
-                newAdminPassword = readWithInvite("Input administrator's Password: "),
-                newAdminRole = "Full access";
-        if (adminService.addAdmin(newAdminName, newAdminLogin, newAdminPassword, newAdminRole));
-        writeln("Administrator " + newAdminName + " was successfully added!");
-    }
+                newAdminPassword = readWithInvite("Input administrator's Password: ");
+                String role = readWithInvite("Input Admin - 1 or Moderator - 2:");
+                switch (role) {
+                    case "1":
+                        if (adminService.addAdmin(newAdminName, newAdminLogin, newAdminPassword, Long.parseLong(role)));
+                        writeln("Administrator " + newAdminName + " was successfully added!");
+                    case "2":
+                        if (adminService.addAdmin(newAdminName, newAdminLogin, newAdminPassword, Long.parseLong(role)));
+                        writeln("Moderator " + newAdminName + " was successfully added!");
+                    default:
+                }
+        }
+
 
     public void removeAdmin() {
         String login = readWithInvite("Input Administrator's Login to delete: "),

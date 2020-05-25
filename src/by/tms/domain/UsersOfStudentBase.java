@@ -6,10 +6,10 @@ public abstract class UsersOfStudentBase {
     private String name;
     private String login;
     private String password;
-    private String role;
+    private long role;
 
 
-    public UsersOfStudentBase(long id, String name, String login, String password, String role) {
+    public UsersOfStudentBase(long id, String name, String login, String password, long role) {
         this.id = id;
         this.name = name;
         this.login = login;
@@ -17,7 +17,7 @@ public abstract class UsersOfStudentBase {
         this.role = role;
     }
 
-    public UsersOfStudentBase(String name, String login, String password, String role) {
+    public UsersOfStudentBase(String name, String login, String password, long role) {
         this.name = name;
         this.login = login;
         this.password = password;
@@ -56,11 +56,11 @@ public abstract class UsersOfStudentBase {
         this.password = password;
     }
 
-    public String getRole() {
+    public long getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(long role) {
         this.role = role;
     }
 
@@ -72,10 +72,10 @@ public abstract class UsersOfStudentBase {
         UsersOfStudentBase that = (UsersOfStudentBase) o;
 
         if (id != that.id) return false;
+        if (role != that.role) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (login != null ? !login.equals(that.login) : that.login != null) return false;
-        if (password != null ? !password.equals(that.password) : that.password != null) return false;
-        return role != null ? role.equals(that.role) : that.role == null;
+        return password != null ? password.equals(that.password) : that.password == null;
     }
 
     @Override
@@ -84,7 +84,7 @@ public abstract class UsersOfStudentBase {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (login != null ? login.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (role != null ? role.hashCode() : 0);
+        result = 31 * result + (int) (role ^ (role >>> 32));
         return result;
     }
 
@@ -95,7 +95,7 @@ public abstract class UsersOfStudentBase {
                 ", name='" + name + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
+                ", role=" + role +
                 '}';
     }
 }

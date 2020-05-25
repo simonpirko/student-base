@@ -22,16 +22,17 @@ public class StudentAction {
 		String password = readWithInvite("Введите пароль:");
 		String faculty = readWithInvite("Введите факультет:");
 		String group = readWithInvite("Введите группу:");
-		if (studentService.add (name, login, password, faculty, group)) {
+		long role = 3;
+		if (studentService.add (name, login, password, faculty, group, role)) {
 			Writer.write("Студент " + login + " добавлен.");
 		} else {
 			Writer.write("Ошибка добавления, такой студент уже существует");
 		}
 	}
 
-	public boolean registrationStudent (String name, String login, String password, String faculty,String group) {
+	public boolean registrationStudent (String name, String login, String password, String faculty,String group, int role) {
 		if (studentService.searchByLogin(login)) {
-			studentService.add(name, login, password, faculty, group);
+			studentService.add(name, login, password, faculty, group, role);
 			return true;
 		} else {
 			return false;
