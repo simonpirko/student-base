@@ -13,12 +13,36 @@ import java.sql.SQLException;
 import static by.tms.action.util.Writer.writeln;
 
 public class StudentStorage {
+	private final static String SAVE_STUDENT = "insert into students s values (default, ?, ?, ?, ?, ?, ?)";
+	private final static String RETURN_BY_LOGIN = "select * from students s where s.login = ?";
+	private final static String REMOVE_STUDENT_BY_ID = "delete * from students s where s.id = ?";
+	private final static String GET_ALL_STUDENTS = "select * from students";
+	private final static String GET_STUDENT_BY_LOGIN = "select * from students s where s.login = ?";
+	private final static String UPDATE_STUDENT_BY_ID = "update students s set s.login = ?, s.password = ?, s.name = ?, s.faculty = ?, s.group = ? where s.id = ?";
+	private final static String UPDATE_PASSWORD_BY_ID = "update students set password = ? where id = ?";
+	private final static String UPDATE_PASSWORD_BY_LOGIN = "update students s set s.password = ? where s.login = ?";
+	private final static String CHECK_STUDENT_PASSWORD_BY_LOGIN = "select * from students s set s.password = ? where s.login = ?";
+	private final static String UPDATE_NAME_BY_ID = "update studens set name = ? where id = ?";
+	private final static String UPDATE_FACULTY_BY_ID = "update students set faculty = ? where id = ?";
+	private final static String UPDATE_GROUP_BY_ID = "update students set groupa = ? where id = ?";
+	private final static String CHECK_BY_ID = "select * from students s where s.id = ?";
+	private final static String CHECK_BY_LOGIN = "select * from students s where s.login = ?";
+	private final static String CHECK_BY_STUDENT = "select * from students s where s.id = ? or s.login = ?";
+	private final static String UPDATE_NAME_FACULTY_GROUP_BY_ID = "update students s set s.name = ?, s.faculty = ?, s.group = ? where id = ?";
+	private final static String CHECK_BY_GROUP = "select * from students s where s.group = ?";
+	private final static String GET_STUDENT_GROUP = "select * from students s where s.group = ?";
+	private final static String CHECK_BY_FACULTY = "select * from students s where s.faculty = ?";
+	private final static String GET_STUDENT_FACULTY = "select * from students s where s.faculty = ?";
 	Connection connection = null;
 
-	public void saveStudent(String name, String login, String password, String role, String faculty, long group) {
+	private final String urlTables = "jdbc:postgresql://localhost:5432/postgres";
+	private final String loginTables = "postgres";
+	private final String passTables = "learn2000_";
+
+	public void saveStudent(String name, String login, String password, String faculty, String group, long role) {
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
-			PreparedStatement preparedStatement = connection.prepareStatement("insert into students s values (default, ?, ?, ?, ?, ?, ?)");
+			connection = DriverManager.getConnection(urlTables, loginTables, passTables);
+			PreparedStatement preparedStatement = connection.prepareStatement(SAVE_STUDENT);
 			preparedStatement.setString(1, name);
 			preparedStatement.setString(2, login);
 			preparedStatement.setString(3, password);
@@ -33,8 +57,8 @@ public class StudentStorage {
 	}
 	public long returnIdByLogin(String login) {
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
-			PreparedStatement preparedStatement = connection.prepareStatement("select * from students s where s.login = ?");
+			connection = DriverManager.getConnection(urlTables, loginTables, passTables);
+			PreparedStatement preparedStatement = connection.prepareStatement(RETURN_BY_LOGIN);
 			preparedStatement.setString(1, login);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			long loginForReturn = resultSet.getLong(1);
@@ -48,8 +72,8 @@ public class StudentStorage {
 
 	public boolean removeStudentById(Long id) {
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
-			PreparedStatement preparedStatement = connection.prepareStatement("delete * from students s where s.id = ?");
+			connection = DriverManager.getConnection(urlTables, loginTables, passTables);
+			PreparedStatement preparedStatement = connection.prepareStatement(REMOVE_STUDENT_BY_ID);
 			preparedStatement.setLong(1, id);
 			preparedStatement.executeQuery();
 			connection.close();
@@ -70,8 +94,8 @@ public class StudentStorage {
 			String group = "";
 			Student student = null;
 			List<Student> listOfStudents = new ArrayList();
-			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
-			PreparedStatement preparedStatement = connection.prepareStatement("select * from students");
+			connection = DriverManager.getConnection(urlTables, loginTables, passTables);
+			PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_STUDENTS);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				id = resultSet.getLong(1);
@@ -104,8 +128,8 @@ public class StudentStorage {
 			String faculty = "";
 			String group = "";
 			Student student = null;
-			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
-			PreparedStatement preparedStatement = connection.prepareStatement("select * from students s where s.login = ?");
+			connection = DriverManager.getConnection(urlTables, loginTables, passTables);
+			PreparedStatement preparedStatement = connection.prepareStatement(GET_STUDENT_BY_LOGIN);
 			preparedStatement.setString(1, inputLogin);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			id = resultSet.getLong(1);
@@ -129,8 +153,8 @@ public class StudentStorage {
 
 	public void updateStudentById(long id, Student student) {
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
-			PreparedStatement preparedStatement = connection.prepareStatement("update students s set s.login = ?, s.password = ?, s.name = ?, s.faculty = ?, s.group = ? where s.id = ?");
+			connection = DriverManager.getConnection(urlTables, loginTables, passTables);
+			PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_STUDENT_BY_ID);
 			preparedStatement.setString(1, student.getLogin());
 			preparedStatement.setString(2, student.getPassword());
 			preparedStatement.setString(3, student.getPassword());
@@ -146,8 +170,8 @@ public class StudentStorage {
 
 	public void updatePasswordById(long id, String password) {
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
-			PreparedStatement preparedStatement = connection.prepareStatement("update students set password = ? where id = ?");
+			connection = DriverManager.getConnection(urlTables, loginTables, passTables);
+			PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_PASSWORD_BY_ID);
 			preparedStatement.setString(1, password);
 			preparedStatement.setLong(2, id);
 			preparedStatement.executeUpdate();
@@ -159,8 +183,8 @@ public class StudentStorage {
 
 	public void updatePasswordByLogin(String login, String newPassword) {
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
-			PreparedStatement preparedStatement = connection.prepareStatement("update students s set s.password = ? where s.login = ?");
+			connection = DriverManager.getConnection(urlTables, loginTables, passTables);
+			PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_PASSWORD_BY_LOGIN);
 			preparedStatement.setString(1, newPassword);
 			preparedStatement.setString(2, login);
 			preparedStatement.executeUpdate();
@@ -172,8 +196,8 @@ public class StudentStorage {
 
 	public boolean checkStudentPasswordByLogin (String inputLogin, String inputPassword) {
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
-			PreparedStatement preparedStatement = connection.prepareStatement("select * from students s set s.password = ? where s.login = ?");
+			connection = DriverManager.getConnection(urlTables, loginTables, passTables);
+			PreparedStatement preparedStatement = connection.prepareStatement(CHECK_STUDENT_PASSWORD_BY_LOGIN);
 			preparedStatement.setString(1, inputPassword);
 			preparedStatement.setString(2, inputLogin);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -186,8 +210,8 @@ public class StudentStorage {
 
 	public void updateNameById (long id , String name) {
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
-			PreparedStatement preparedStatement = connection.prepareStatement("update studens set name = ? where id = ?");
+			connection = DriverManager.getConnection(urlTables, loginTables, passTables);
+			PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_NAME_BY_ID);
 			preparedStatement.setString(1, name);
 			preparedStatement.setLong(2, id);
 			preparedStatement.executeUpdate();
@@ -199,8 +223,8 @@ public class StudentStorage {
 
 	public void updateFacultyById(long id, String faculty) {
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
-			PreparedStatement preparedStatement = connection.prepareStatement("update students set faculty = ? where id = ?");
+			connection = DriverManager.getConnection(urlTables, loginTables, passTables);
+			PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_FACULTY_BY_ID);
 			preparedStatement.setString(1, faculty);
 			preparedStatement.setLong(2, id);
 			preparedStatement.executeUpdate();
@@ -212,8 +236,8 @@ public class StudentStorage {
 
 	public void updateGroupById(long id, String groupa) {
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "1987Roll");
-			PreparedStatement preparedStatement = connection.prepareStatement("update students set groupa = ? where id = ?");
+			connection = DriverManager.getConnection(urlTables, loginTables, passTables);
+			PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_GROUP_BY_ID);
 			preparedStatement.setString(1, groupa);
 			preparedStatement.setLong(2, id);
 			preparedStatement.executeUpdate();
@@ -225,8 +249,8 @@ public class StudentStorage {
 
 	public boolean checkById(Long id) {
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/student_base");
-			PreparedStatement preparedStatement = connection.prepareStatement("select * from students s where s.id = ?");
+			connection = DriverManager.getConnection(urlTables, loginTables, passTables);
+			PreparedStatement preparedStatement = connection.prepareStatement(CHECK_BY_ID);
 			preparedStatement.setLong(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
@@ -240,8 +264,8 @@ public class StudentStorage {
 
 	public boolean checkByLogin(String login) {
 		try {
-			Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/student_base");
-			PreparedStatement preparedStatement = connection.prepareStatement("select * from students s where s.login = ?");
+			connection = DriverManager.getConnection(urlTables, loginTables, passTables);
+			PreparedStatement preparedStatement = connection.prepareStatement(CHECK_BY_LOGIN);
 			preparedStatement.setString(1, login);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
@@ -255,8 +279,8 @@ public class StudentStorage {
 
 	public boolean checkByStudent(Student student) {
 		try {
-			Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/student_base");
-			PreparedStatement preparedStatement = connection.prepareStatement("select * from students s where s.id = ? or s.login = ?");
+			connection = DriverManager.getConnection(urlTables, loginTables, passTables);
+			PreparedStatement preparedStatement = connection.prepareStatement(CHECK_BY_STUDENT);
 			preparedStatement.setLong(1, student.getId());
 			preparedStatement.setString(2, student.getLogin());
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -271,8 +295,8 @@ public class StudentStorage {
 
 	public boolean updateNameFacultyGroupById(long id, String password, String newName, String newFaculty, String newGroup) {
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
-			PreparedStatement preparedStatement = connection.prepareStatement("update students s set s.name = ?, s.faculty = ?, s.group = ? where id = ?");
+			connection = DriverManager.getConnection(urlTables, loginTables, passTables);
+			PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_NAME_FACULTY_GROUP_BY_ID);
 			preparedStatement.setString(1, newName);
 			preparedStatement.setString(2, newFaculty);
 			preparedStatement.setString(3, newGroup);
@@ -288,8 +312,8 @@ public class StudentStorage {
 
 	public boolean checkByGroup(String group) {
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
-			PreparedStatement preparedStatement = connection.prepareStatement("select * from students s where s.group = ?");
+			connection = DriverManager.getConnection(urlTables, loginTables, passTables);
+			PreparedStatement preparedStatement = connection.prepareStatement(CHECK_BY_GROUP);
 			preparedStatement.setString(1, group);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
@@ -305,8 +329,8 @@ public class StudentStorage {
 	public ArrayList<Student> getStudentGroup(String inputGroup) {
 		ArrayList<Student> studentsGroup = new ArrayList<>();
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
-			PreparedStatement preparedStatement = connection.prepareStatement("select * from students s where s.group = ?");
+			connection = DriverManager.getConnection(urlTables, loginTables, passTables);
+			PreparedStatement preparedStatement = connection.prepareStatement(GET_STUDENT_GROUP);
 			preparedStatement.setString(1, inputGroup);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
@@ -329,8 +353,8 @@ public class StudentStorage {
 
 	public boolean checkByFaculty(String faculty) {
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
-			PreparedStatement preparedStatement = connection.prepareStatement("select * from students s where s.faculty = ?");
+			connection = DriverManager.getConnection(urlTables, loginTables, passTables);
+			PreparedStatement preparedStatement = connection.prepareStatement(CHECK_BY_FACULTY);
 			preparedStatement.setString(1, faculty);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
@@ -345,8 +369,8 @@ public class StudentStorage {
 	public ArrayList<Student> getStudentFaculty(String inputFaculty) {
 		ArrayList<Student> studentsFaculty = new ArrayList<>();
 		try {
-			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
-			PreparedStatement preparedStatement = connection.prepareStatement("select * from students s where s.faculty = ?");
+			connection = DriverManager.getConnection(urlTables, loginTables, passTables);
+			PreparedStatement preparedStatement = connection.prepareStatement(GET_STUDENT_FACULTY);
 			preparedStatement.setString(1, inputFaculty);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
