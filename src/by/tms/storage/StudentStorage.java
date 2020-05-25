@@ -15,23 +15,22 @@ import static by.tms.action.util.Writer.writeln;
 public class StudentStorage {
 	Connection connection = null;
 
-	public void saveStudent(String name, String login, String password, String faculty, String group) {
+	public void saveStudent(String name, String login, String password, String role, String faculty, long group) {
 		try {
 			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
-			PreparedStatement preparedStatement = connection.prepareStatement("update students s set s.id = default, set s.name = ?, set s.login = ?, set s.password = ?, set s.faculty = ?, set s.group = ?");
+			PreparedStatement preparedStatement = connection.prepareStatement("insert into students s values (default, ?, ?, ?, ?, ?, ?)");
 			preparedStatement.setString(1, name);
 			preparedStatement.setString(2, login);
 			preparedStatement.setString(3, password);
 			preparedStatement.setString(4, faculty);
 			preparedStatement.setString(5, group);
+			preparedStatement.setLong(6, role);
 			preparedStatement.executeQuery();
 			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-
-
 	public long returnIdByLogin(String login) {
 		try {
 			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
@@ -270,31 +269,6 @@ public class StudentStorage {
 		return false;
 	}
 
-	public static void main (String[] args) {
-
-		Connection connection = null;
-//		public Admin checkJoin () {
-			try {
-				connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "learn2000_");
-				String sql = "select * from admins a join roles r on a.role_id=r.id where a.login=?";
-				PreparedStatement preparedStatement = connection.prepareStatement(sql);
-				preparedStatement.setString(1, "Vasya");
-				ResultSet resultSet = preparedStatement.executeQuery();
-				System.out.println(resultSet.next());
-				String checkName = resultSet.getString(2);
-				long checkRole = resultSet.getLong(5);
-				connection.close();
-				writeln(checkName + " " + checkRole);
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-
-
-
-
 	public boolean updateNameFacultyGroupById(long id, String password, String newName, String newFaculty, String newGroup) {
 		try {
 			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgress", "learn2000_");
@@ -342,7 +316,7 @@ public class StudentStorage {
 				String password = resultSet.getString(4);
 				String faculty = resultSet.getString(5);
 				String group = resultSet.getString(6);
-				String role = resultSet.getString(7);
+				long role = resultSet.getLong(7);
 				Student student = new Student(id, name, login, password, faculty, group, role);
 				studentsGroup.add(student);
 			}
@@ -382,7 +356,7 @@ public class StudentStorage {
 				String password = resultSet.getString(4);
 				String faculty = resultSet.getString(5);
 				String group = resultSet.getString(6);
-				String role = resultSet.getString(7);
+				long role = resultSet.getLong(7);
 				Student student = new Student(id, name, login, password, faculty, group, role);
 				studentsFaculty.add(student);
 			}

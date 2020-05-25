@@ -7,9 +7,9 @@ public class AdminService {
 	private AdminStorage adminStorage = new AdminStorage();
 
 	public boolean addAdmin(String name,
-							String login,
-							String password,
-							String role) {
+                            String login,
+                            String password,
+                            long role) {
 		if (!adminStorage.checkAdminByLogin(login, password)) {
 			Admin admin = new Admin(name, login, password, role);
 			admin.setLogin(admin.getLogin().toUpperCase());
@@ -21,7 +21,7 @@ public class AdminService {
 	}
 
 	public boolean authorizationAdmin (String login, String password) {
-		if (adminStorage.checkAdminByLogin(login, password)) {
+		if (adminStorage.checkAdminByLogin(login, password) && adminStorage.checkUserRole(login) == 1) {
 			if (adminStorage.checkAdminPasswordByLogin(login, password)) {
 				return true;
 			}
@@ -30,7 +30,7 @@ public class AdminService {
 	}
 
 	public boolean removeAdmin (String adminLogin, String adminPassword) {
-		if (adminStorage.checkAdminByLogin(adminLogin, adminPassword)) {
+		if (adminStorage.checkAdminByLogin(adminLogin, adminPassword) && adminStorage.checkUserRole(adminLogin) == 1) {
 			adminStorage.removeAdminByLogin(adminLogin, adminPassword);
 			return true;
 		} else return false;

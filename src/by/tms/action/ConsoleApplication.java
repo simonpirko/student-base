@@ -68,7 +68,7 @@ public class ConsoleApplication {
                                 studentName = readWithInvite("Input name");
                                 studentFaculty = readWithInvite("Input faculty");
                                 studentGroup = readWithInvite("Input group");
-                                if (studentAction.registrationStudent(studentName, studentLogin, studentPassword, studentFaculty, studentGroup)) {
+                                if (studentAction.registrationStudent(studentName, studentLogin, studentPassword, studentFaculty, studentGroup, 3)) {
                                     writeln("Student + " + studentName + " added");
                                     casesForStudent();
                                     } else {

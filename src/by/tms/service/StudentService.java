@@ -10,9 +10,9 @@ import java.util.List;
 public class StudentService {
 	private final StudentStorage studentStorage = new StudentStorage();
 
-	public boolean add(String name, String login, String password, String faculty, String group) {
+	public boolean add(String name, String login, String password, String faculty, String group, long role) {
 		if (!studentStorage.checkByLogin(login)) {
-			studentStorage.saveStudent(name, login, password, faculty, group);
+			studentStorage.saveStudent(name, login, password, faculty, group, role);
 			return true;
 		} else {
 			return false;
