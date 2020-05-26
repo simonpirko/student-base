@@ -40,6 +40,8 @@ public class ConsoleApplication {
                             case 1:
                                 studentLogin = readWithInvite("Input student login");
                                 studentPassword = readWithInvite("Input student password");
+
+                                // FIXME: 5/27/20
                                 if (studentAction.authorizationStudent(studentLogin, studentPassword)) {
                                     casesForStudent();
                                     writeln("Auth ok!");
@@ -68,6 +70,8 @@ public class ConsoleApplication {
                                 studentName = readWithInvite("Input name");
                                 studentFaculty = readWithInvite("Input faculty");
                                 studentGroup = readWithInvite("Input group");
+
+                                // FIXME: 5/27/20
                                 if (studentAction.registrationStudent(studentName, studentLogin, studentPassword, studentFaculty, studentGroup, 3)) {
                                     writeln("Student + " + studentName + " added");
                                     casesForStudent();

@@ -16,39 +16,21 @@ public class StudentAction {
 
 	private final StudentService studentService = new StudentService();
 
-	public void addStudent () {
+	public void addStudent() {
 		String name = readWithInvite("Введите имя:");
 		String login = readWithInvite("Введите логин:");
 		String password = readWithInvite("Введите пароль:");
 		String faculty = readWithInvite("Введите факультет:");
 		String group = readWithInvite("Введите группу:");
 		long role = 3;
-		if (studentService.add (name, login, password, faculty, group, role)) {
+		if (studentService.add(name, login, password, faculty, group, role)) {
 			Writer.write("Студент " + login + " добавлен.");
 		} else {
 			Writer.write("Ошибка добавления, такой студент уже существует");
 		}
 	}
 
-	public boolean registrationStudent (String name, String login, String password, String faculty,String group, int role) {
-		if (studentService.searchByLogin(login)) {
-			studentService.add(name, login, password, faculty, group, role);
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public boolean authorizationStudent (String login, String password) {
-		if (studentService.searchByLogin(login)) {
-			if (studentService.chekPasswordByLogin(login, password)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public void changeStudentPasswordByLogin () {
+	public void changeStudentPasswordByLogin() {
 		String login = readWithInvite("Input Login");
 		String password = readWithInvite("Input password");
 		if (studentService.changeStudentPasswordByLogin(login, password)) {

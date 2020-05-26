@@ -56,7 +56,7 @@ public class StudentService {
 		return studentStorage.updateNameFacultyGroupById(id, password, newName, newFaculty, newGroup);
 	}
 
-	public boolean chekPasswordByLogin (String login, String password) {
+	public boolean checkPasswordByLogin (String login, String password) {
 		if (studentStorage.checkStudentPasswordByLogin(login, password)) return true;
 		else return false;
 	}
@@ -64,28 +64,17 @@ public class StudentService {
 
 	public ArrayList<Student> getStudentGroupList(String group) {
 		if (studentStorage.checkByGroup(group)) {
-			return studentStorage.getStudentGroup(group);
+			return new ArrayList<>(studentStorage.getStudentGroup(group));
 		}
 		return null;
 	}
 
 	public ArrayList<Student> getStudentFacultyList(String faculty) {
 		if (studentStorage.checkByFaculty(faculty)) {
-			return studentStorage.getStudentFaculty(faculty);
+			return new ArrayList<>(studentStorage.getStudentFaculty(faculty));
 		}
 		return null;
 	}
-
-//	public boolean changeFaculty(Student student, String faculty) {
-//		if (studentStorage.existFaculty(student.getFaculty())) {
-//			studentStorage.changeFaculty;
-//			return true;
-//		}
-//		else{
-//			Writer.write("Такого факультета не существует");
-//		}
-//		return false;
-//	}
 
 	public boolean changeFaculty(Long id, String newFaculty) {
 		if (studentStorage.checkById(id)) {
@@ -107,8 +96,8 @@ public class StudentService {
 		return false;
 	}
 
-	public List<Student> getAllStudents() { // Написать метод для вывода списка всех студентов
-		return studentStorage.getAllStudents();
+	public List<Student> getAllStudents() {
+		return new ArrayList<>(studentStorage.getAllStudents());
 	}
 
 	public boolean searchById(Long id) {
@@ -143,6 +132,4 @@ public class StudentService {
 		}
 		return false;
 	}
-
-
-} // end of StudentService
+}
