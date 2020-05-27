@@ -19,7 +19,8 @@ public class Reader {
             try {
 
                 // FIXME: 5/27/20
-                long id = Long.parseLong(readWithInvite("Input Student ID: "));
+                Writer.writeln("Input Student ID: ");
+                long id = Long.parseLong(readLine());
                 if (id < 0) throw new NumberFormatException();
                 return id;
             } catch (NumberFormatException e) {
