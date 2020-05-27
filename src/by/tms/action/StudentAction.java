@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static by.tms.action.util.Reader.readId;
-import static by.tms.action.util.Reader.readWithInvite;
+import static by.tms.action.util.Reader.readLine;
 import static by.tms.action.util.Writer.writeln;
 
 public class StudentAction {
@@ -17,11 +17,16 @@ public class StudentAction {
 	private final StudentService studentService = new StudentService();
 
 	public void addStudent() {
-		String name = readWithInvite("Введите имя:");
-		String login = readWithInvite("Введите логин:");
-		String password = readWithInvite("Введите пароль:");
-		String faculty = readWithInvite("Введите факультет:");
-		String group = readWithInvite("Введите группу:");
+		writeln("Введите имя:");
+		String name = readLine();
+		writeln("Введите логин:");
+		String login = readLine();
+		writeln("Введите пароль:");
+		String password = readLine();
+		writeln("Введите факультет:");
+		String faculty = readLine();
+		writeln("Введите группу:");
+		String group = readLine();;
 		long role = 3;
 		if (studentService.add(name, login, password, faculty, group, role)) {
 			Writer.write("Студент " + login + " добавлен.");
@@ -31,8 +36,10 @@ public class StudentAction {
 	}
 
 	public void changeStudentPasswordByLogin() {
-		String login = readWithInvite("Input Login");
-		String password = readWithInvite("Input password");
+		writeln("Input Login");
+		String login = readLine();
+		writeln("Input password");
+		String password = readLine();
 		if (studentService.changeStudentPasswordByLogin(login, password)) {
 			writeln("Password changed");
 		} else
@@ -40,7 +47,8 @@ public class StudentAction {
 	}
 
 	public void removeStudent() {
-		String login = readWithInvite("Input student Login: ");
+		writeln("Input student Login: ");
+		String login = readLine();
 		if (studentService.removeStudentByLogin(login))
 			writeln("Student was successfully removed!");
 		else
@@ -56,7 +64,8 @@ public class StudentAction {
 	}
 
 	public void findByLogin() {
-		String login = readWithInvite("Input Login: ");
+		writeln("Input Login: ");
+		String login = readLine();
 		Student student = studentService.searchStudentByLogin(login);
 		if (student != null)
 			writeln("Founded Student with login:" + login + " :\n" + student.toString());
@@ -68,10 +77,14 @@ public class StudentAction {
 		writeln("Input student's Id:");
 		long id = readId();
 		if (studentService.searchById(id)) {
-			String newName = readWithInvite("Input new name:");
-			String newFaculty = readWithInvite("Input new faculty:");
-			String newGroup = readWithInvite("Input new group:");
-			String password = readWithInvite("Input Student password:");
+			writeln("Input new name:");
+			String newName = readLine();
+			writeln("Input new faculty:");
+			String newFaculty = readLine();
+			writeln("Input new group:");
+			String newGroup = readLine();
+			writeln("Input Student password:");
+			String password = readLine();
 			studentService.updateNameFacultyGroupById(id, password, newName, newFaculty, newGroup);
 			writeln("Name, faculty, group were updated.");
 		} else
@@ -82,7 +95,8 @@ public class StudentAction {
 		writeln("Input student's Id:");
 		long id = readId();
 		if (studentService.searchById(id)) {
-			String newName = readWithInvite("Input new name:");
+			writeln("Input new name:");
+			String newName = readLine();
 			studentService.updateNameById(id, newName);
 			writeln("Name, faculty, group were updated.");
 		}
@@ -93,7 +107,8 @@ public class StudentAction {
 		writeln("Input id:");
 		long id = readId();
 		if (studentService.searchById(id)) {
-			String newPassword = readWithInvite("Input new password:");
+			writeln("Input new password:");
+			String newPassword = readLine();;
 			studentService.changePasswordById(id, newPassword);
 			writeln("Input new password:");
 		}
@@ -103,7 +118,9 @@ public class StudentAction {
 	public void updateFacultyById() {
 		writeln("Input id:");
 		long id = readId();
-		if (studentService.updateFacultyById(id, readWithInvite("Input new faculty:")))
+		writeln("Input new faculty:");
+		String newFaculty = readLine();
+		if (studentService.updateFacultyById(id, newFaculty))
 			writeln("Faculty updated");
 		else writeln("Not found id");
 	}
@@ -111,7 +128,9 @@ public class StudentAction {
 	public void updateGroupById() {
 		writeln("Input id:");
 		long id = readId();
-		if (studentService.updateGroupById(id, readWithInvite("Input new group:")))
+		writeln("Input new group:");
+		String newGroup = readLine();
+		if (studentService.updateGroupById(id, newGroup))
 			writeln("Group updated");
 		else writeln("Not found id");
 	}
@@ -127,7 +146,8 @@ public class StudentAction {
 	}
 
 	public void searchByLogin() {
-		String login = readWithInvite("Введите логин для поиска по логину:");
+		writeln("Введите логин для поиска по логину:");
+		String login = readLine();
 		Student studentByLogin = studentService.searchStudentByLogin(login);
 		if (studentByLogin != null) {
 			Writer.write("Студент " + login + " найден:");
@@ -148,7 +168,8 @@ public class StudentAction {
 	}
 
 	public void getStudentGroupList() {
-		String group = readWithInvite("Input group name");
+		writeln("Input group name");
+		String group = readLine();
 		Student student;
 		if (studentService.getStudentGroupList(group) != null) {
 			ArrayList<Student> studentGroupList = studentService.getStudentGroupList(group);
@@ -160,7 +181,8 @@ public class StudentAction {
 	}
 
 	public void getStudentFacultyList() {
-		String faculty = readWithInvite("Input faculty name");
+		writeln("Input faculty name");
+		String faculty = readLine();
 		Student student;
 		if (studentService.getStudentFacultyList(faculty) != null) {
 			ArrayList<Student> studentFacultyList = studentService.getStudentFacultyList(faculty);
