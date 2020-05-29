@@ -31,7 +31,6 @@ public class AdminAction {
                 }
         }
 
-
     public void removeAdmin() {
         writeln("Input Administrator's Login to delete: ");
         String login = readLine();
