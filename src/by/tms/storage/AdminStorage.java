@@ -93,7 +93,7 @@ public class AdminStorage {
         long id = 0;
         String name = null;
         String password = null;
-        long role = 1;
+        int role = 1;
         try {
             Connection connection = DriverManager.getConnection(URL_TABLES, LOGIN_TABLES, PASS_TABLES);
             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ADMIN_BY_LOGIN);
@@ -103,7 +103,7 @@ public class AdminStorage {
                 id = resultSet.getLong(1);
                 name = resultSet.getString(2);
                 password = resultSet.getString(4);
-                role = resultSet.getLong(5);
+                role = resultSet.getInt(5);
             }
             connection.close();
             return (new Admin(id, name, login, password, role));

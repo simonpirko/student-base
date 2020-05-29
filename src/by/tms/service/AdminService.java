@@ -9,7 +9,7 @@ public class AdminService {
 	public boolean addAdmin(String name,
                             String login,
                             String password,
-                            long role) {
+                            int role) {
 		if (!adminStorage.checkAdminByLogin(login, password)) {
 			Admin admin = new Admin(name, login, password, role);
 			admin.setLogin(admin.getLogin().toUpperCase());
