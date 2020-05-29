@@ -6,10 +6,10 @@ public abstract class UsersOfStudentBase {
     private String name;
     private String login;
     private String password;
-    private long role;
+    private int role;
 
 
-    public UsersOfStudentBase(long id, String name, String login, String password, long role) {
+    public UsersOfStudentBase(long id, String name, String login, String password, int role) {
         this.id = id;
         this.name = name;
         this.login = login;
@@ -17,7 +17,7 @@ public abstract class UsersOfStudentBase {
         this.role = role;
     }
 
-    public UsersOfStudentBase(String name, String login, String password, long role) {
+    public UsersOfStudentBase(String name, String login, String password, int role) {
         this.name = name;
         this.login = login;
         this.password = password;
@@ -60,7 +60,7 @@ public abstract class UsersOfStudentBase {
         return role;
     }
 
-    public void setRole(long role) {
+    public void setRole(int role) {
         this.role = role;
     }
 

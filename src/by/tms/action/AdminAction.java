@@ -4,7 +4,7 @@ import by.tms.action.util.Writer;
 import by.tms.service.AdminService;
 
 import static by.tms.action.util.Reader.readId;
-import static by.tms.action.util.Reader.readWithInvite;
+import static by.tms.action.util.Reader.readLine;
 import static by.tms.action.util.Writer.writeln;
 
 public class AdminAction {
@@ -12,16 +12,20 @@ public class AdminAction {
     private AdminService adminService = new AdminService();
 
     public void addAdmin() {
-        String newAdminName = readWithInvite("Input administrator's Name: "),
-                newAdminLogin = readWithInvite("Input administrator's Login: "),
-                newAdminPassword = readWithInvite("Input administrator's Password: ");
-                String role = readWithInvite("Input Admin - 1 or Moderator - 2:");
-                switch (role) {
-                    case "1":
-                        if (adminService.addAdmin(newAdminName, newAdminLogin, newAdminPassword, Long.parseLong(role)));
+        writeln("Input administrator's Name: ");
+        String newAdminName = readLine();
+        writeln("Input administrator's Login: ");
+        String newAdminLogin = readLine();
+        writeln("Input administrator's Password: ");
+        String newAdminPassword = readLine();
+        writeln("Input Admin - 1 or Moderator - 2:");
+        int role = Integer.parseInt(readLine());
+        switch (role) {
+                    case 1:
+                        if (adminService.addAdmin(newAdminName, newAdminLogin, newAdminPassword, role));
                         writeln("Administrator " + newAdminName + " was successfully added!");
-                    case "2":
-                        if (adminService.addAdmin(newAdminName, newAdminLogin, newAdminPassword, Long.parseLong(role)));
+                    case 2:
+                        if (adminService.addAdmin(newAdminName, newAdminLogin, newAdminPassword, role));
                         writeln("Moderator " + newAdminName + " was successfully added!");
                     default:
                 }
@@ -29,8 +33,10 @@ public class AdminAction {
 
 
     public void removeAdmin() {
-        String login = readWithInvite("Input Administrator's Login to delete: "),
-                password = readWithInvite("Input Administrator's Password: ");
+        writeln("Input Administrator's Login to delete: ");
+        String login = readLine();
+        writeln("Input Administrator's Password: ");
+        String password = readLine();
         if (adminService.removeAdmin(login, password))
             writeln("Student was successfully removed!");
         else
@@ -48,7 +54,10 @@ public class AdminAction {
 
 
     public void findAdminByLogin() {
-        String adminLogin = readWithInvite("Input Administrator's Login: "), adminPassword = readWithInvite("Input Administrator's password: ");
+        writeln("Input Administrator's Login: ");
+        String adminLogin = readLine();
+        writeln("Input Administrator's Password: ");
+        String adminPassword = readLine();
         if ((adminService.checkAdminByLogin(adminLogin, adminPassword)))
             writeln("Founded Administrator:\n" + adminLogin);
         else
@@ -58,7 +67,8 @@ public class AdminAction {
     public void findAdminById() {
         writeln("Input Administrator's Id: ");
         long adminId = readId();
-        String adminPassword = readWithInvite("Input Administrator's password: ");
+        writeln("Input Administrator's Password: ");
+        String adminPassword = readLine();
         if ((adminService.checkAdminById(adminId, adminPassword)))
             writeln("Founded Administrator with Id: " + adminId);
         else
@@ -68,8 +78,10 @@ public class AdminAction {
     public void updateAdminNameById() {
         Writer.writeln("Input Administrator's Id:");
         Long adminId = readId();
-        String adminPassword = readWithInvite("Input Administrator's password:");
-        String adminNewName = readWithInvite("Input Administrator's new name:");
+        writeln("Input Administrator's Password: ");
+        String adminPassword = readLine();
+        writeln("Input Administrator's new name:");
+        String adminNewName = readLine();
         if (adminService.updateAdminNameById(adminId, adminPassword, adminNewName))
             Writer.writeln("New name of Administrator with id " + adminId + " was set");
         else writeln("Id " + adminId + " or password is incorrect!");

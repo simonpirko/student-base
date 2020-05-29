@@ -340,7 +340,7 @@ public class StudentStorage {
 				String password = resultSet.getString(4);
 				String faculty = resultSet.getString(5);
 				String group = resultSet.getString(6);
-				long role = resultSet.getLong(7);
+				int role = resultSet.getInt(7);
 				Student student = new Student(id, name, login, password, faculty, group, role);
 				studentsGroup.add(student);
 			}
@@ -380,7 +380,7 @@ public class StudentStorage {
 				String password = resultSet.getString(4);
 				String faculty = resultSet.getString(5);
 				String group = resultSet.getString(6);
-				long role = resultSet.getLong(7);
+				int role = resultSet.getInt(7);
 				Student student = new Student(id, name, login, password, faculty, group, role);
 				studentsFaculty.add(student);
 			}

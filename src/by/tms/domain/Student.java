@@ -5,13 +5,13 @@ public class Student extends UsersOfStudentBase {
 	private String faculty;
 	private String group;
 
-	public Student(long id, String name, String login, String password, String faculty, String group, long role) {
+	public Student(long id, String name, String login, String password, String faculty, String group, int role) {
 		super(id, name, login, password, role);
 		this.faculty = faculty;
 		this.group = group;
 	}
 
-	public Student(String name, String login, String password, String faculty, String group, long role) {
+	public Student(String name, String login, String password, String faculty, String group, int role) {
 		super(name, login, password, role);
 		this.faculty = faculty;
 		this.group = group;
